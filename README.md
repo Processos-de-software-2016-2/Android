@@ -10,9 +10,18 @@ O projeto foi divido em equipes, onde cada uma é responsável por implementar u
   * <a href="https://github.com/Processos-de-software-2016-2/UX">UX</a>
   * <a href="https://github.com/Processos-de-software-2016-2/Web-App">Web App</a>
 
-Esta seção é de responsabilidade da Equipe Android. Algumas funcionalidades desejadas para a aplicação são:
-  
+Esta seção é de responsabilidade da Equipe Android. 
 
+#Funcionalidades da aplicação
+  * Sistema de cadastro e identificação de usuários
+  * Sistema de cadastro e busca de <i>interesses</i> e <i>habilidades</i>.
+  * Sistema de matching baseado nos interesses e habilidades.
+  * Busca com critérios baseados em interesses ou habilidades.
+  * Perfis personalizados com fotos.
+  
+#Exemplo de conexão entre usuários
+[![Scheme.png](https://s14.postimg.org/oc5d7b7dd/Scheme.png)](https://postimg.org/image/9g6tzpvyl/)
+  
 #Equipe
 A Equipe Android é formada por:
   * <a href="https://github.com/edumarques">Luiz Eduardo Marques Silva</a>
