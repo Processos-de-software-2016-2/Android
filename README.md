@@ -20,6 +20,9 @@ Esta seção é de responsabilidade da Equipe Android.
   * Perfis personalizados com fotos.
   
 #Exemplo de conexão entre usuários
+De forma a preservar a privacidade de nossos usuários e não disponibilizar suas informações de contato automaticamente, decidimos por criar
+<i>requisões de conexão</i>, que um usuário enviaria para outro uma vez que eles combinassem. Segue um exemplo ilustrativo do funcionamento
+de tal requisição.
 [![Scheme.png](https://s14.postimg.org/oc5d7b7dd/Scheme.png)](https://postimg.org/image/9g6tzpvyl/)
   
 #Equipe
