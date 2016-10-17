@@ -1,5 +1,6 @@
 # Projeto
-Este é o projeto final da disciplina <b>Processos de Software 2016.2</b>, do curso de <b>Tecnologia da Informação</b> da <b>Universidade Federal do Rio Grande do Norte</b>. Este projeto tem como objetivo construir um software que <strike>inserir descrição do que o produto faz</strike>.
+Este é o projeto final da disciplina <b>Processos de Software 2016.2</b>, do curso de <b>Tecnologia da Informação</b> da <b>Universidade Federal do Rio Grande do Norte</b>.
+Este projeto tem como objetivo construir um software que permita aos usuários combinar interesses e habilidades de forma que possam formar duplas que compartilhem conhecimento e resolvam problemas uns dos outros.
 
 O projeto foi divido em equipes, onde cada uma é responsável por implementar uma tecnologia. Ao se concluir o trabalho, esperamos uma integração entre todos para gerar o produto final. As equipes são as seguintes:
 
@@ -9,7 +10,8 @@ O projeto foi divido em equipes, onde cada uma é responsável por implementar u
   * <a href="https://github.com/Processos-de-software-2016-2/UX">UX</a>
   * <a href="https://github.com/Processos-de-software-2016-2/Web-App">Web App</a>
 
-Esta seção é de responsabilidade da Equipe Android.
+Esta seção é de responsabilidade da Equipe Android. Algumas funcionalidades desejadas para a aplicação são:
+  
 
 #Equipe
 A Equipe Android é formada por:
