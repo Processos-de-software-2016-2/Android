@@ -30,3 +30,4 @@ A Equipe Android é formada por:
   * <a href="https://github.com/Gabrielsvc">Gabriel Sebastian Von Conta</a>
   * <a href="https://github.com/ronaldo1993">Ronaldo Dias dos Santos Junior</a>
   * <a href="https://github.com/Ziwork">Francisco Ledson dos Santos</a>
+  * <a href="https://github.com/danielsmithm">Daniel Costa Smith de Medeiros</a>
