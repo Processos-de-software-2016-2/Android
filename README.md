@@ -28,7 +28,6 @@ de tal requisição.
 
 As tecnologias escolhidas para desenvolver o projeto foram: 
 
-  * <a href="https://www.genymotion.com/">Gennymotion</a>
   * <a href="http://projects.spring.io/spring-android/">Spring framework for Android</a>
   * <a href="https://developer.android.com/studio/index.html?hl=pt-br">Android Studio</a>
   * <a href="https://gradle.org/getting-started-android-build/">Gradle</a>
