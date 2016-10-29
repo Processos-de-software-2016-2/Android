@@ -23,6 +23,16 @@ Esta seção é de responsabilidade da Equipe Android.
 De forma a preservar a privacidade de nossos usuários e não disponibilizar suas informações de contato automaticamente, decidimos por criar requisões de conexão, que um usuário enviaria para outro uma vez que eles combinassem. Segue um exemplo ilustrativo do funcionamento
 de tal requisição.
 [![Scheme.png](https://s14.postimg.org/oc5d7b7dd/Scheme.png)](https://postimg.org/image/9g6tzpvyl/)
+
+#Tecnologias utilizadas
+
+As tecnologias escolhidas para desenvolver o projeto foram: 
+
+  * <a href="http://projects.spring.io/spring-android/">Spring framework for Android</a>
+  * <a href="https://developer.android.com/studio/index.html?hl=pt-br">Android Studio</a>
+  * <a href="https://gradle.org/getting-started-android-build/">Gradle</a>
+
+
   
 #Equipe
 A Equipe Android é formada por:
