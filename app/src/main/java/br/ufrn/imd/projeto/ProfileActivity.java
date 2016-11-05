@@ -31,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.lvAbilities);
 
+        //TODO criar sub listas
         List<String> abilities = new ArrayList<String>();
         abilities.add("Habilidade0");
         abilities.add("Habilidade1");
