@@ -5,14 +5,4 @@
         android:startColor="#000000"
         android:endColor="#748290"
         android:angle="225" />
-
-    <stroke
-        android:color="@android:color/background_light"
-        android:width="5dp" />
-
-    <corners
-        android:bottomRightRadius="7dp"
-        android:bottomLeftRadius="7dp"
-        android:topLeftRadius="7dp"
-        android:topRightRadius="7dp"/>
 </shape>
