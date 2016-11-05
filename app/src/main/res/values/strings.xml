@@ -24,4 +24,6 @@
     <string name="username">Username</string>
     <string name="starpoint">★ 0</string>
     <string name="profile_picture">Profile picture</string>
+    <string name="back">Back</string>
+    <string name="contact">Contact</string>
 </resources>

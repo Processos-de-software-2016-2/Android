@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -116,5 +117,10 @@ public class ProfileActivity extends AppCompatActivity {
         canvas.drawBitmap(bitmap, rectSrc, rectDest, paint);
 
         return output;
+    }
+
+    // Função botão voltar
+    public void backHistory(View view) {
+        finish();
     }
 }
