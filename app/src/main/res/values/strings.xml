@@ -21,4 +21,7 @@
     <string name="password">Password</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="username">Username</string>
+    <string name="starpoint">★ 0</string>
+    <string name="profile_picture">Profile picture</string>
 </resources>

@@ -9,10 +9,11 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ExpandableListView;
+import android.text.Html;
+import android.util.DisplayMetrics;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,40 +25,84 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // Calculo do tamanho da foto do perfil
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        int width = displaymetrics.widthPixels;
+
+        if  (width > height) {
+            width = width / 2;
+        }
+        else {
+            height = height / 2;
+        }
+
+        int size = (width > height) ? height : width;
+
+        // Modificando e setando imagem do perfil
+        // TODO Mudar para foto vindo da internet
         ImageView imageView = (ImageView) findViewById(R.id.ivPicture);
         Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.paul);
         bitmap = getCroppedBitmap(bitmap);
         imageView.setImageBitmap(bitmap);
+        imageView.getLayoutParams().height = size;
+        imageView.getLayoutParams().width = size;
 
-        ListView listView = (ListView) findViewById(R.id.lvAbilities);
+        // Lista de habilidades e interesses
+        // TODO Mudar para a lista vinda da internet
+        List<String> abilities = new ArrayList<>();
+        abilities.add("C++");
+        abilities.add("Java");
+        abilities.add("Android");
+        abilities.add("Tapioca Engineering");
 
-        //TODO criar sub listas
-        List<String> abilities = new ArrayList<String>();
-        abilities.add("Habilidade0");
-        abilities.add("Habilidade1");
-        abilities.add("Habilidade2");
-        abilities.add("Habilidade3");
-        abilities.add("Habilidade4");
-        abilities.add("Habilidade5");
-        abilities.add("Habilidade6");
-        abilities.add("Habilidade7");
-        abilities.add("Habilidade8");
-        abilities.add("Habilidade9");
+        List<String> interests = new ArrayList<>();
+        interests.add("Unity");
+        interests.add("3D Modeling");
+        interests.add("Game Engine Performance");
+        interests.add("Cooking");
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, abilities);
+        // Populando a lista com as habilidades e interesses
+        LinearLayout layout1 = (LinearLayout) findViewById(R.id.llAbilities);
+        LinearLayout layout2 = (LinearLayout) findViewById(R.id.llInterests);
 
-        listView.setAdapter(arrayAdapter);
+        TextView textAb = new TextView(this);
+        String s1 = "<b>\u2022 Abilities</b>";
 
+        for (int i = 0; i < abilities.size(); ++i) {
+            s1 += "<br>\t" + abilities.get(i);
+        }
+
+        // A versão atual é API 24
+        //noinspection deprecation
+        textAb.setText(Html.fromHtml(s1));
+
+        TextView textIn = new TextView(this);
+        String s2 = "<b>\u2022 Interests</b>";
+
+        for (int i = 0; i < interests.size(); ++i) {
+            s2 += "<br>\t" + interests.get(i);
+        }
+
+        // A versão atual é API 24
+        //noinspection deprecation
+        textIn.setText(Html.fromHtml(s2));
+
+        layout1.addView(textAb);
+        layout2.addView(textIn);
     }
 
-    public Bitmap getCroppedBitmap(Bitmap bitmap) {
+
+    // Cria a foto circular para o perfil
+    private Bitmap getCroppedBitmap(Bitmap bitmap) {
         final int radius = (bitmap.getWidth() < bitmap.getHeight()) ? bitmap.getWidth() : bitmap.getHeight();
         final int widthFix = bitmap.getWidth() - radius;
         final int heightFix = bitmap.getHeight() - radius;
 
         final int color = 0xff424242;
         final Paint paint = new Paint();
-        final Rect rectSrc = new Rect(0 + widthFix / 2, 0 + heightFix / 2, widthFix / 2 + radius, heightFix / 2  + radius);
+        final Rect rectSrc = new Rect(widthFix / 2, heightFix / 2, widthFix / 2 + radius, heightFix / 2  + radius);
         final Rect rectDest = new Rect(0, 0, radius, radius);
 
         Bitmap output = Bitmap.createBitmap(radius, radius, Bitmap.Config.ARGB_8888);
