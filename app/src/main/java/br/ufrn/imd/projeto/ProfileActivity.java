@@ -25,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         ImageView imageView = (ImageView) findViewById(R.id.ivPicture);
-        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.monokuma);
+        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.paul);
         bitmap = getCroppedBitmap(bitmap);
         imageView.setImageBitmap(bitmap);
 
