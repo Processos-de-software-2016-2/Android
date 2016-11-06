@@ -21,12 +21,13 @@
         android:onClick="goLoginScreen"/>
 
     <Button
-        android:text="@string/register"
+        android:text="@string/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btRegister"
         android:gravity="center_vertical|center_horizontal|center"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:onClick="goSearchScreen"/>
 
     <Button
         android:text="@string/profile"

@@ -2,11 +2,7 @@ package br.ufrn.imd.projeto;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -14,8 +10,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -47,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         // TODO Mudar para foto vindo da internet
         ImageView imageView = (ImageView) findViewById(R.id.ivPicture);
         Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.paul);
-        bitmap = getCroppedBitmap(bitmap);
+        bitmap = (new PictureCreator()).getCroppedBitmap(bitmap);
         imageView.setImageBitmap(bitmap);
         imageView.getLayoutParams().height = size;
         imageView.getLayoutParams().width = size;
@@ -80,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
         // A versão atual é API 24
         //noinspection deprecation
         textAb.setText(Html.fromHtml(s1));
+        textAb.setTextColor(Color.BLACK);
 
         TextView textIn = new TextView(this);
         String s2 = "<b>\u2022 Interests</b>";
@@ -91,34 +86,10 @@ public class ProfileActivity extends AppCompatActivity {
         // A versão atual é API 24
         //noinspection deprecation
         textIn.setText(Html.fromHtml(s2));
+        textIn.setTextColor(Color.BLACK);
 
         layout1.addView(textAb);
         layout2.addView(textIn);
-    }
-
-
-    // Cria a foto circular para o perfil
-    private Bitmap getCroppedBitmap(Bitmap bitmap) {
-        final int radius = (bitmap.getWidth() < bitmap.getHeight()) ? bitmap.getWidth() : bitmap.getHeight();
-        final int widthFix = bitmap.getWidth() - radius;
-        final int heightFix = bitmap.getHeight() - radius;
-
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rectSrc = new Rect(widthFix / 2, heightFix / 2, widthFix / 2 + radius, heightFix / 2  + radius);
-        final Rect rectDest = new Rect(0, 0, radius, radius);
-
-        Bitmap output = Bitmap.createBitmap(radius, radius, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawCircle(radius / 2, radius / 2, radius / 2, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rectSrc, rectDest, paint);
-
-        return output;
     }
 
     // Função botão voltar

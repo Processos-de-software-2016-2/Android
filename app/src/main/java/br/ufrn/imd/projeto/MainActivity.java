@@ -26,4 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    public void goSearchScreen(View view) {
+        Intent intent = new Intent(this, SearchActivity.class);
+
+        startActivity(intent);
+    }
 }

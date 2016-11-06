@@ -76,7 +76,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:id="@+id/llAbilities"
-            android:background="@drawable/roundrectangle"
+            android:theme="@style/box"
             android:padding="5dp"
             android:layout_marginBottom="5dp">
 
@@ -90,7 +90,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:id="@+id/llInterests"
-            android:background="@drawable/roundrectangle"
+            android:theme="@style/box"
             android:padding="5dp"
             android:layout_marginTop="5dp">
 

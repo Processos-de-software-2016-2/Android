@@ -26,4 +26,6 @@
     <string name="profile_picture">Profile picture</string>
     <string name="back">Back</string>
     <string name="contact">Contact</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Ex: C++, Inglês, Violão...</string>
 </resources>
