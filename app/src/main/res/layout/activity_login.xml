@@ -19,7 +19,8 @@
 
         <TextView
             android:id="@+id/tvUser"
-            android:text="@string/user"
+            android:text="@string/username"
+            android:textColor="@color/colorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -31,12 +32,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorText"
             android:layout_below="@id/tvUser" />
 
         <TextView
             android:id="@+id/tvPassword"
             android:text="@string/password"
+            android:textColor="@color/colorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/etUser" />
@@ -46,16 +48,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorText"
             android:layout_below="@id/tvPassword" />
 
         <Button
             android:id="@+id/btOK"
-            android:text="@string/ok"
+            android:text="@string/action_sign_in_short"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/background_light"
-            android:background="@color/colorPrimary"
+            android:textColor="@color/colorText"
+            android:background="@color/colorAccent"
             android:layout_below="@id/etPassword" />
 
     </RelativeLayout>

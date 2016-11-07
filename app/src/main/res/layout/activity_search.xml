@@ -22,14 +22,14 @@
         <EditText
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="@string/search_hint"
+            android:textColor="@color/colorText"
             android:ems="10"
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/ibSearch"
             android:layout_toLeftOf="@+id/ibSearch"
-            android:textSize="14sp" />
+             />
 
         <ImageButton
             android:layout_width="wrap_content"

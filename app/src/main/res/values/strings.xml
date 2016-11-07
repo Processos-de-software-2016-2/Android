@@ -27,5 +27,5 @@
     <string name="back">Back</string>
     <string name="contact">Contact</string>
     <string name="search">Search</string>
-    <string name="search_hint">Ex: C++, Inglês, Violão...</string>
+    <string name="search_hint">i.e.: guitar</string>
 </resources>

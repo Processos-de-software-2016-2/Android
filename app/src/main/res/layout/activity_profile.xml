@@ -42,7 +42,7 @@
             android:id="@+id/tvName"
             android:textStyle="normal|bold"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorText"
             android:layout_below="@+id/separator1"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -55,7 +55,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:id="@+id/tvScore"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorText"
             android:textStyle="normal|bold"
             android:textSize="18sp" />
 
