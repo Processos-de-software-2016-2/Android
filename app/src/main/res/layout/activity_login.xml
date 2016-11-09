@@ -14,8 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:padding="20dp"
-        android:theme="@style/box">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/tvUser"
@@ -49,14 +48,30 @@
             android:textColor="@color/colorPrimary"
             android:layout_below="@id/tvPassword" />
 
-        <Button
-            android:id="@+id/btOK"
-            android:text="@string/ok"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/background_light"
-            android:background="@color/colorPrimary"
-            android:layout_below="@id/etPassword" />
+            android:orientation="horizontal"
+            android:layout_below="@id/etPassword">
+
+            <Button
+                android:id="@+id/btOK"
+                android:text="@string/sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:onClick="signIn"/>
+
+            <Button
+                android:id="@+id/btSignUP"
+                android:text="@string/sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

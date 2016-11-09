@@ -31,7 +31,7 @@ public class SearchActivity extends AppCompatActivity {
         Button button = new Button(this);
 
         Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.paul);
-        bitmap = (new PictureCreator()).getCroppedBitmap(bitmap);
+        bitmap = new PictureCreator().getCroppedBitmap(bitmap);
         Drawable img = new BitmapDrawable(this.getResources(), bitmap);
         img.setBounds(0, 0, height/4, height/4);
 

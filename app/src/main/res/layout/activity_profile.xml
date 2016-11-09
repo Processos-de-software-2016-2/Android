@@ -18,6 +18,13 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:id="@+id/rlProfile" >
 
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_centerHorizontal="true"/>
+
         <ImageView
             android:layout_width="match_parent"
             app:srcCompat="@mipmap/ic_launcher"
@@ -96,6 +103,26 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@id/llInterests"
+            android:id="@+id/separator3"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/separator3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/llContacts">
+
+        </LinearLayout>
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,6 +147,31 @@
             android:layout_alignParentEnd="true"
             android:onClick="backHistory"
             android:contentDescription="@string/back" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_search"
+            android:id="@+id/ibFind"
+            android:layout_above="@id/separator1"
+            style="@android:style/Widget.ImageButton"
+            android:background="@null"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:contentDescription="@string/find_users"
+            android:onClick="search"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            android:id="@+id/ibConfig"
+            android:layout_above="@id/separator1"
+            style="@android:style/Widget.ImageButton"
+            android:background="@null"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/edit_profile" />
 
     </RelativeLayout>
 

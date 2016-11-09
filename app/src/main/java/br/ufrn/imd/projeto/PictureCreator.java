@@ -6,12 +6,14 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.os.AsyncTask;
 
 /**
  * Created by ledson on 11/6/16.
  */
 
-public class PictureCreator {
+public class PictureCreator{
 
     // Cria a foto circular
     public Bitmap getCroppedBitmap(Bitmap bitmap) {

@@ -36,5 +36,5 @@
         android:id="@+id/btProfile"
         android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal|center"
-        android:onClick="goProfileScreen"/>
+        android:onClick="goProfileScreen" />
 </LinearLayout>
