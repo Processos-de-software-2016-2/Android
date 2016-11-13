@@ -10,13 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,21 +30,42 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        if (getIntent().getBooleanExtra("own", true)) {
-            findViewById(R.id.ibContact).setVisibility(View.GONE);
-            findViewById(R.id.ibBack).setVisibility(View.GONE);
-        }
-        else {
-            findViewById(R.id.ibFind).setVisibility(View.GONE);
-            findViewById(R.id.ibConfig).setVisibility(View.GONE);
-        }
-
-        findViewById(R.id.ivPicture).setVisibility(View.INVISIBLE);
-
         new LoadPhoto().execute(this);
 
-        // Lista de habilidades e interesses
-        // TODO Mudar para a lista vinda da internet
+        initAbilitiesInterests();
+
+        initContacts();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_profile_own, menu);
+
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        return true;
+    }
+
+    // Função botão procurar
+    public void search(MenuItem item) {
+        Intent intent = new Intent(this, SearchActivity.class);
+
+        startActivity(intent);
+    }
+
+    public void editProfile(MenuItem item) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+
+        intent.putExtra("register", false);
+        intent.putExtra("user", ((TextView) findViewById(R.id.tvComplement)).getText().toString());
+
+        startActivity(intent);
+    }
+
+    // Inicia lista de habilidades e interesses
+    private void initAbilitiesInterests() {
+        // Lista de habilidades e interesses TODO Mudar para a lista vinda da internet
         List<String> abilities = new ArrayList<>();
         abilities.add("C++");
         abilities.add("Java");
@@ -61,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
         LinearLayout layout2 = (LinearLayout) findViewById(R.id.llInterests);
 
         TextView textAb = new TextView(this);
-        String s1 = "<b>\u2022 Abilities</b>";
+        String s1 = "<b>\u2022 " + getResources().getString(R.string.abilities) + "</b>";
 
         for (int i = 0; i < abilities.size(); ++i) {
             s1 += "<br>\t" + abilities.get(i);
@@ -73,7 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
         textAb.setTextColor(Color.BLACK);
 
         TextView textIn = new TextView(this);
-        String s2 = "<b>\u2022 Interests</b>";
+        String s2 = "<b>\u2022 " + getResources().getString(R.string.interests) + "</b>";
 
         for (int i = 0; i < interests.size(); ++i) {
             s2 += "<br>\t" + interests.get(i);
@@ -86,40 +108,45 @@ public class ProfileActivity extends AppCompatActivity {
 
         layout1.addView(textAb);
         layout2.addView(textIn);
+    }
 
-        // Adicionar contatos
+    private void initContacts() {
+        // Adicionar contatos TODO mudar para contatos vindos da internet
         LinearLayout layout3 = (LinearLayout) findViewById(R.id.llContacts);
         ImageButton imageButton;
 
-        for (int i = 0; i < 2; ++i) {
-            imageButton = new ImageButton(this);
-            imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.monokuma));
-            imageButton.setBackgroundResource(0);
-            imageButton.setPadding(5, 0, 5, 0);
-            layout3.addView(imageButton);
-        }
+        imageButton = new ImageButton(this);
+        imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar1));
+        imageButton.setBackgroundResource(0);
+        imageButton.setPadding(0, 0, 0, 0);
+        layout3.addView(imageButton);
 
         imageButton = new ImageButton(this);
-        imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), android.R.drawable.ic_menu_add));
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
-        imageButton.setLayoutParams(layoutParams);
+        imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar2));
         imageButton.setBackgroundResource(0);
-        imageButton.setPadding(5, 0, 5, 0);
+        imageButton.setPadding(0, 0, 0, 0);
+        layout3.addView(imageButton);
+
+        imageButton = new ImageButton(this);
+        imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar3));
+        imageButton.setBackgroundResource(0);
+        imageButton.setPadding(0, 0, 0, 0);
+        layout3.addView(imageButton);
+
+        imageButton = new ImageButton(this);
+        imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar4));
+        imageButton.setBackgroundResource(0);
+        imageButton.setPadding(0, 0, 0, 0);
+        layout3.addView(imageButton);
+
+        imageButton = new ImageButton(this);
+        imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar5));
+        imageButton.setBackgroundResource(0);
+        imageButton.setPadding(0, 0, 0, 0);
         layout3.addView(imageButton);
     }
 
-    // Função botão voltar
-    public void backHistory(View view) {
-        finish();
-    }
-
-    public void search(View view) {
-        Intent intent = new Intent(this, SearchActivity.class);
-
-        startActivity(intent);
-    }
-
+    // Thread que irá fazer o serviço pesado
     private class LoadPhoto extends AsyncTask<Context, Void, Bitmap> {
         private int size;
 
@@ -140,8 +167,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             size = (width > height) ? height : width;
 
-            // Modificando e setando imagem do perfil
-            // TODO Mudar para foto vindo da internet
+            // Modificando e setando imagem do perfil TODO Mudar para foto vindo da internet
             Bitmap bitmap = BitmapFactory.decodeResource(params[0].getResources(), R.drawable.paul);
             bitmap = new PictureCreator().getCroppedBitmap(bitmap);
 

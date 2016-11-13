@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_profile"
     android:orientation="vertical"
@@ -12,66 +11,62 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:id="@+id/rlProfile" >
+        android:id="@+id/rlProfile">
+
+        <ImageView
+            android:id="@+id/ivBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@+id/separator1"
+            android:contentDescription="@string/profile_picture"
+            android:background="@drawable/background_profile"/>
 
         <ProgressBar
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/progressBar"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/tvName"/>
 
         <ImageView
-            android:layout_width="match_parent"
-            app:srcCompat="@mipmap/ic_launcher"
             android:id="@+id/ivPicture"
-            android:layout_centerHorizontal="true"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/profile_picture" />
-
-        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimary"
-            android:id="@+id/separator1"
-            android:layout_below="@id/ivPicture"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp" />
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/profile_picture"
+            android:layout_margin="10dp"
+            android:visibility="invisible" />
 
         <TextView
             android:text="@string/username"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvName"
             android:textStyle="normal|bold"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_below="@+id/separator1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_below="@+id/ivPicture"
+            android:layout_centerHorizontal="true"
+            android:theme="@style/textViewProfileHeader"/>
 
         <TextView
-            android:text="@string/starpoint"
+            android:text="@string/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/separator1"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/tvScore"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="normal|bold"
-            android:textSize="18sp" />
+            android:layout_below="@+id/tvName"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tvComplement"
+            android:textStyle="normal|italic"
+            android:textSize="14sp"
+            android:theme="@style/textViewProfileHeader"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPrimary"
-            android:layout_below="@id/tvName"
-            android:id="@+id/separator2"
+            android:background="@android:color/white"
+            android:layout_below="@id/tvComplement"
+            android:id="@+id/separator1"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp" />
 
@@ -79,13 +74,15 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/separator2"
+            android:layout_below="@+id/separator1"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:id="@+id/llAbilities"
             android:theme="@style/box"
-            android:padding="5dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="20dp">
 
         </LinearLayout>
 
@@ -98,80 +95,36 @@
             android:layout_alignParentStart="true"
             android:id="@+id/llInterests"
             android:theme="@style/box"
-            android:padding="5dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="20dp">
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPrimary"
+            android:background="@android:color/white"
             android:layout_below="@id/llInterests"
-            android:id="@+id/separator3"
-            android:layout_marginBottom="10dp"
+            android:id="@+id/separator2"
             android:layout_marginTop="10dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/separator3"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/llContacts">
-
-        </LinearLayout>
-
-        <ImageButton
+        <HorizontalScrollView
+            android:id="@+id/hsvContacts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_call"
-            android:id="@+id/ibContact"
-            android:layout_above="@id/separator1"
-            style="@android:style/Widget.ImageButton"
-            android:background="@null"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:contentDescription="@string/contact" />
+            android:layout_below="@id/separator2"
+            android:layout_centerHorizontal="true"
+            android:scrollbars="none">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_revert"
-            android:id="@+id/ibBack"
-            android:layout_above="@id/separator1"
-            style="@android:style/Widget.ImageButton"
-            android:background="@null"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:onClick="backHistory"
-            android:contentDescription="@string/back" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/llContacts">
+            </LinearLayout>
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_search"
-            android:id="@+id/ibFind"
-            android:layout_above="@id/separator1"
-            style="@android:style/Widget.ImageButton"
-            android:background="@null"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:contentDescription="@string/find_users"
-            android:onClick="search"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_edit"
-            android:id="@+id/ibConfig"
-            android:layout_above="@id/separator1"
-            style="@android:style/Widget.ImageButton"
-            android:background="@null"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:contentDescription="@string/edit_profile" />
+        </HorizontalScrollView>
 
     </RelativeLayout>
 

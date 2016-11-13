@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="@string/search"
+        android:id="@+id/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:onClick="search"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:title="@string/edit_profile"
+        android:id="@+id/action_edit"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:onClick="editProfile"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"/>
+
+</menu>
