@@ -40,15 +40,6 @@ public class SearchActivity extends AppCompatActivity {
         Drawable img;
 
         button = new Button(this);
-        bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.paul);
-        bitmap = new PictureCreator().getCroppedBitmap(bitmap);
-        img = new BitmapDrawable(this.getResources(), bitmap);
-        img.setBounds(0, 0, height/4, height/4);
-        button.setCompoundDrawables(img, null, null, null);
-        button.setText(this.getResources().getString(R.string.username) + "\n" + this.getResources().getString(R.string.starpoint));
-        layout.addView(button);
-
-        button = new Button(this);
         bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar1);
         bitmap = new PictureCreator().getCroppedBitmap(bitmap);
         img = new BitmapDrawable(this.getResources(), bitmap);

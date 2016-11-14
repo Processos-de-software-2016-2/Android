@@ -16,15 +16,16 @@
         android:id="@+id/rlSearchBar"
         android:padding="20dp">
 
-        <EditText
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="@string/search_hint"
-            android:ems="10"
-            android:id="@+id/etSearch"
+        <Spinner
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/tags"
+            android:spinnerMode="dialog"
+            android:id="@+id/spSearch"
             android:layout_toStartOf="@+id/ibSearch"
             android:layout_toLeftOf="@+id/ibSearch"
+            android:layout_alignTop="@+id/ibSearch"
+            android:layout_alignBottom="@id/ibSearch"
             android:textSize="14sp"/>
 
         <ImageButton
@@ -32,18 +33,17 @@
             android:layout_height="wrap_content"
             app:srcCompat="@android:drawable/ic_menu_search"
             android:id="@+id/ibSearch"
-            android:layout_alignTop="@+id/etSearch"
-            android:layout_alignBottom="@id/etSearch"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:background="@null"
             android:contentDescription="@string/search"
-            android:onClick="search"/>
+            android:onClick="search"
+            android:padding="5dp"/>
 
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/etSearch"
+            android:layout_below="@id/spSearch"
             android:orientation="horizontal"
             android:layout_centerHorizontal="true"
             android:background="@null">

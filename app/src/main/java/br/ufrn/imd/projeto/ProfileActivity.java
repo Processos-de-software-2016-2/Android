@@ -1,6 +1,5 @@
 package br.ufrn.imd.projeto;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,27 +13,26 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
+    boolean main;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        new LoadPhoto().execute(this);
+        main = getIntent().getBooleanExtra("main", true);
+        userId = getIntent().getStringExtra("user");
 
-        initAbilitiesInterests();
-
-        initContacts();
+        initFields();
     }
 
     @Override
@@ -63,20 +61,30 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void contactUser(MenuItem item) {
+        /*
+        TODO contact user
+         */
+    }
+
+    public void backToMain(MenuItem item) {
+        /*
+        TODO back to user
+         */
+    }
+
+    public void initFields() {
+        new LoadPhoto().execute(((BaseAppExtender) this.getApplication()).getPicture());
+        ((TextView) findViewById(R.id.tvName)).setText(((BaseAppExtender) this.getApplication()).getName());
+        ((TextView) findViewById(R.id.tvComplement)).setText(((BaseAppExtender) this.getApplication()).getEmail());
+        initAbilitiesInterests();
+        initContacts();
+    }
+
     // Inicia lista de habilidades e interesses
     private void initAbilitiesInterests() {
-        // Lista de habilidades e interesses TODO Mudar para a lista vinda da internet
-        List<String> abilities = new ArrayList<>();
-        abilities.add("C++");
-        abilities.add("Java");
-        abilities.add("Android");
-        abilities.add("Tapioca Engineering");
-
-        List<String> interests = new ArrayList<>();
-        interests.add("Unity");
-        interests.add("3D Modeling");
-        interests.add("Game Engine Performance");
-        interests.add("Cooking");
+        List<String> abilities = ((BaseAppExtender) this.getApplication()).getAbility();
+        List<String> interests = ((BaseAppExtender) this.getApplication()).getInterest();
 
         // Populando a lista com as habilidades e interesses
         LinearLayout layout1 = (LinearLayout) findViewById(R.id.llAbilities);
@@ -146,12 +154,12 @@ public class ProfileActivity extends AppCompatActivity {
         layout3.addView(imageButton);
     }
 
-    // Thread que irá fazer o serviço pesado
-    private class LoadPhoto extends AsyncTask<Context, Void, Bitmap> {
+    // Thread que irá fazer o serviço de cortar a imagem do perfil
+    private class LoadPhoto extends AsyncTask<Bitmap, Void, Bitmap> {
         private int size;
 
         @Override
-        protected Bitmap doInBackground(Context... params) {
+        protected Bitmap doInBackground(Bitmap... params) {
             // Calculo do tamanho da foto do perfil
             DisplayMetrics displaymetrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -167,8 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             size = (width > height) ? height : width;
 
-            // Modificando e setando imagem do perfil TODO Mudar para foto vindo da internet
-            Bitmap bitmap = BitmapFactory.decodeResource(params[0].getResources(), R.drawable.paul);
+            Bitmap bitmap = params[0];
             bitmap = new PictureCreator().getCroppedBitmap(bitmap);
 
             return bitmap;

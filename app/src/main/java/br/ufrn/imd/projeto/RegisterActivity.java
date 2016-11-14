@@ -1,9 +1,11 @@
 package br.ufrn.imd.projeto;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,16 +15,27 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RegisterActivity extends AppCompatActivity {
     boolean register;
     String userId;
+    boolean successfulOperation = false;
+
     Bitmap picture;
     String name;
     String email;
     String password;
     String passwordConfirm;
+    List<String> abilityList = new ArrayList<>();
     String ability;
+    List<String> interestList = new ArrayList<>();
     String interest;
+
+    Bundle bundle = new Bundle();
+    ErrorDialog errorDialog = new ErrorDialog();
+    LoadingDialog loadingDialog = new LoadingDialog();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        LoadingDialog loadingDialog = new LoadingDialog();
-
-        loadingDialog.show(getFragmentManager(), "loading");
+        register = getIntent().getBooleanExtra("register", true);
+        userId = getIntent().getStringExtra("user");
 
         initVariables();
 
@@ -49,14 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
         else {
             findViewById(R.id.btRegister).setVisibility(View.GONE);
         }
-
-        loadingDialog.dismiss();
     }
 
     private void initVariables() {
-        register = getIntent().getBooleanExtra("register", true);
-        userId = getIntent().getStringExtra("user");
-
         if (register) {
             picture = BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher);
             name = "";
@@ -65,23 +72,22 @@ public class RegisterActivity extends AppCompatActivity {
             interest = getResources().getString(R.string.selected_interests);
         }
         else {
-            getUserData();
+            picture = ((BaseAppExtender) this.getApplication()).getPicture();
+            name = ((BaseAppExtender) this.getApplication()).getName();
+            email = ((BaseAppExtender) this.getApplication()).getEmail();
+
+            abilityList = ((BaseAppExtender) this.getApplication()).getAbility();
+            ability = getResources().getString(R.string.selected_abilities);
+            for (int i = 0; i < abilityList.size(); ++i) {
+                ability += "\n\t" + abilityList.get(i);
+            }
+
+            interestList = ((BaseAppExtender) this.getApplication()).getInterest();
+            interest = getResources().getString(R.string.selected_interests);
+            for (int i = 0; i < interestList.size(); ++i) {
+                interest += "\n\t" + interestList.get(i);
+            }
         }
-    }
-
-    private void getUserData() {
-        /*
-        TODO carregar dados do usuário do BD
-        use userId para selecionar o usuário no BD
-        jogue a imagem em picture
-        substitua "?" de acordo com as strings carregadas
-         */
-
-        picture = BitmapFactory.decodeResource(this.getResources(), android.R.drawable.ic_menu_help);
-        name = "?";
-        email = "?";
-        ability = getResources().getString(R.string.selected_abilities) + "\n?";
-        interest = getResources().getString(R.string.selected_interests) + "\n?";
     }
 
     private void initFields() {
@@ -106,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
         String listAbility = textView.getText().toString();
 
         listAbility += "\n\t" + newAbility;
+        abilityList.add(newAbility);
 
         textView.setText(listAbility);
     }
@@ -118,13 +125,12 @@ public class RegisterActivity extends AppCompatActivity {
         String listInterest= textView.getText().toString();
 
         listInterest += "\n\t" + newInterest;
+        interestList.add(newInterest);
 
         textView.setText(listInterest);
     }
 
     public void confirmRegister(View view) {
-        ErrorDialog errorDialog = new ErrorDialog();
-        Bundle bundle = new Bundle();
         ImageButton imageButton = (ImageButton) findViewById(R.id.ibProfilePicture);
 
         picture = ((BitmapDrawable)imageButton.getDrawable()).getBitmap();
@@ -135,26 +141,12 @@ public class RegisterActivity extends AppCompatActivity {
         ability = ((TextView) findViewById(R.id.tvSelectedAbilities)).getText().toString();
         interest = ((TextView) findViewById(R.id.tvSelectedInterests)).getText().toString();
 
-        if (password.equals(passwordConfirm) && checkRegister(picture, name, email, password, ability, interest)) {
-            Intent intent = new Intent(this, ProfileActivity.class);
-            startActivity(intent);
-        }
-        else {
-            bundle.putInt("code", 1);
-            errorDialog.setArguments(bundle);
-            errorDialog.show(getFragmentManager(), "error");
-        }
+        loadingDialog.show(getFragmentManager(), "loading");
+        new ProcessRegister().execute(this);
     }
 
     private boolean checkRegister(Bitmap picture, String name, String email, String password, String ability, String interest) {
-        boolean success;
-        LoadingDialog loadingDialog = new LoadingDialog();
-
-        loadingDialog.show(getFragmentManager(), "loading");
-
-        success = registerWithServer(picture, name, email, password, ability, interest);
-
-        loadingDialog.dismiss();
+        boolean success = registerWithServer(picture, name, email, password, ability, interest);
 
         return success;
     }
@@ -169,8 +161,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void confirmUpdate(View view) {
-        ErrorDialog errorDialog = new ErrorDialog();
-        Bundle bundle = new Bundle();
         ImageButton imageButton = (ImageButton) findViewById(R.id.ibProfilePicture);
 
         picture = ((BitmapDrawable)imageButton.getDrawable()).getBitmap();
@@ -181,26 +171,12 @@ public class RegisterActivity extends AppCompatActivity {
         ability = ((TextView) findViewById(R.id.tvSelectedAbilities)).getText().toString();
         interest = ((TextView) findViewById(R.id.tvSelectedInterests)).getText().toString();
 
-        if (password.equals(passwordConfirm) && checkUpdate(picture, name, email, password, ability, interest)) {
-            Intent intent = new Intent(this, ProfileActivity.class);
-            startActivity(intent);
-        }
-        else {
-            bundle.putInt("code", 2);
-            errorDialog.setArguments(bundle);
-            errorDialog.show(getFragmentManager(), "error");
-        }
+        loadingDialog.show(getFragmentManager(), "loading");
+        new ProcessUpdate().execute(this);
     }
 
     private boolean checkUpdate(Bitmap picture, String name, String email, String password, String ability, String interest) {
-        boolean success;
-        LoadingDialog loadingDialog = new LoadingDialog();
-
-        loadingDialog.show(getFragmentManager(), "loading");
-
-        success = updateWithServer(picture, name, email, password, ability, interest);
-
-        loadingDialog.dismiss();
+        boolean success = updateWithServer(picture, name, email, password, ability, interest);
 
         return success;
     }
@@ -212,5 +188,84 @@ public class RegisterActivity extends AppCompatActivity {
         retorne false se cadastro falhou
          */
         return true;
+    }
+
+    private void setUserGlobalData() {
+        // Seta os dados nas variáveis que serão utilisadas pelo app em qualquer tela
+        ((BaseAppExtender) this.getApplication()).setPicture(picture);
+        ((BaseAppExtender) this.getApplication()).setName(name);
+        ((BaseAppExtender) this.getApplication()).setEmail(email);
+        ((BaseAppExtender) this.getApplication()).setAbility(abilityList);
+        ((BaseAppExtender) this.getApplication()).setInterest(interestList);
+    }
+
+    // Thread que irá fazer o registro
+    private class ProcessRegister extends AsyncTask<Context, Void, Context> {
+
+        @Override
+        protected Context doInBackground(Context... params) {
+            if (password.equals(passwordConfirm) && checkRegister(picture, name, email, password, ability, interest)) {
+                setUserGlobalData();
+                successfulOperation = true;
+            }
+            else {
+                successfulOperation = false;
+            }
+
+            return params[0];
+        }
+
+        @Override
+        protected void onPostExecute(Context result) {
+            loadingDialog.dismiss();
+
+            if (successfulOperation) {
+                Intent intent = new Intent(result, ProfileActivity.class);
+                intent.putExtra("main", true);
+                intent.putExtra("user", email);
+                startActivity(intent);
+            }
+            else {
+                bundle.putInt("code", 1);
+                errorDialog.setArguments(bundle);
+                errorDialog.show(getFragmentManager(), "error");
+            }
+        }
+
+    }
+
+    // Thread que irá fazer o update
+    private class ProcessUpdate extends AsyncTask<Context, Void, Context> {
+
+        @Override
+        protected Context doInBackground(Context... params) {
+            if (password.equals(passwordConfirm) && checkUpdate(picture, name, email, password, ability, interest)) {
+                setUserGlobalData();
+                successfulOperation = true;
+            }
+            else {
+                successfulOperation = false;
+            }
+
+            return params[0];
+        }
+
+        @Override
+        protected void onPostExecute(Context result) {
+            loadingDialog.dismiss();
+
+            if (successfulOperation) {
+                Intent intent = new Intent(result, ProfileActivity.class);
+                intent.putExtra("main", true);
+                intent.putExtra("user", email);
+                startActivity(intent);
+            }
+            else {
+                bundle.putInt("code", 2);
+                errorDialog.setArguments(bundle);
+                errorDialog.show(getFragmentManager(), "error");
+            }
+        }
+
     }
 }
