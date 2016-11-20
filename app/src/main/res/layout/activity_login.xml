@@ -10,14 +10,16 @@
     android:theme="@style/box"
     tools:context="br.ufrn.imd.projeto.LoginActivity">
 
-    <ImageView
+    <TextView
+        android:text="@string/app_name"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:srcCompat="@drawable/logo"
-        android:id="@+id/ivLogo"
-        android:background="@null"
-        android:contentDescription="@string/logo" />
+        android:id="@+id/tvLogoName"
+        android:gravity="center"
+        android:textStyle="normal|bold"
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimary" />
 
     <Button
         android:text="@string/enter"

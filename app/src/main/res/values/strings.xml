@@ -7,8 +7,8 @@
     <string name="error2">Update failed.</string>
 
     <!-- Other stuff -->
+    <string name="app_name">Trocando Habilidades</string>
     <string name="ok">OK</string>
-    <string name="app_name">Projeto</string>
     <string name="login">Login</string>
     <string name="profile">Profile</string>
     <string name="user">Email</string>
@@ -36,6 +36,7 @@
     <string name="login_with">Login with:</string>
     <string name="enter">Enter</string>
     <string name="logo">Logo</string>
+    <string name="welcome">Welcome</string>
 
     <!-- Drop down items -->
     <string-array name="tags">
