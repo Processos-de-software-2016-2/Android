@@ -1,83 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:padding="20dp"
+    android:theme="@style/box"
     tools:context="br.ufrn.imd.projeto.LoginActivity">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/logo"
+        android:id="@+id/ivLogo"
+        android:background="@null"
+        android:contentDescription="@string/logo" />
+
+    <Button
+        android:text="@string/enter"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:theme="@style/box"
-        android:padding="20dp"
-        tools:ignore="UselessParent">
-
-        <TextView
-            android:id="@+id/tvUser"
-            android:text="@string/user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
-
-        <EditText
-            android:id="@+id/etUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:textColor="@color/colorPrimary"
-            android:layout_below="@id/tvUser" />
-
-        <TextView
-            android:id="@+id/tvPassword"
-            android:text="@string/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/etUser" />
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColor="@color/colorPrimary"
-            android:layout_below="@id/tvPassword" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/etPassword"
-            android:background="@null"
-            android:id="@+id/llSign"
-            style="?android:attr/buttonBarStyle">
-
-            <Button
-                android:id="@+id/btOK"
-                android:text="@string/sign_in"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:onClick="signIn"
-                tools:ignore="ButtonStyle" />
-
-            <Button
-                android:id="@+id/btSignUP"
-                android:text="@string/sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:onClick="signUp"
-                tools:ignore="ButtonStyle" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-</RelativeLayout>
+        android:id="@+id/btStart"
+        android:onClick="enterSystem"/>
+</LinearLayout>

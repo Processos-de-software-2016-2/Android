@@ -1,10 +1,12 @@
 package br.ufrn.imd.projeto;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     Bundle bundle = new Bundle();
     ErrorDialog errorDialog = new ErrorDialog();
     LoadingDialog loadingDialog = new LoadingDialog();
+    LoginDialog loginDialog = new LoginDialog();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +36,18 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_login, menu);
-
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         return true;
     }
 
+    public void enterSystem(View view) {
+        loginDialog.show(getFragmentManager(), "login");
+    }
+
     public void signIn(View view) {
-        user = ((EditText) findViewById(R.id.etUser)).getText().toString();
-        password = ((EditText) findViewById(R.id.etPassword)).getText().toString();
+        user = loginDialog.getUser();
+        password = loginDialog.getPassword();
 
         loadingDialog.show(getFragmentManager(), "loading");
         new ProcessLogin().execute(this);
@@ -55,13 +59,13 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loginFacebook(MenuItem item) {
+    public void loginFacebook(View view) {
         /*
         TODO login com facebook
          */
     }
 
-    public void loginGoogle(MenuItem item) {
+    public void loginGoogle(View view) {
         /*
         TODO login com google+
          */

@@ -132,8 +132,7 @@
                 android:layout_alignBottom="@id/ibAdd1"
                 android:layout_toStartOf="@+id/ibAdd1"
                 android:layout_toLeftOf="@+id/ibAdd1"
-                android:textSize="14sp"
-                android:background="@null"/>
+                android:textSize="14sp"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -181,8 +180,7 @@
                 android:layout_alignBottom="@id/ibAdd2"
                 android:layout_toStartOf="@+id/ibAdd2"
                 android:layout_toLeftOf="@+id/ibAdd2"
-                android:textSize="14sp"
-                android:background="@null"/>
+                android:textSize="14sp"/>
 
             <ImageButton
                 android:layout_width="wrap_content"

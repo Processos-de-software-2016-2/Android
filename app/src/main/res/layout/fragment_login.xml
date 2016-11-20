@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    tools:context="br.ufrn.imd.projeto.LoginActivity">
+
+    <TextView
+        android:id="@+id/tvUser"
+        android:text="@string/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:id="@+id/etUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@id/tvUser" />
+
+    <TextView
+        android:id="@+id/tvPassword"
+        android:text="@string/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etUser"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@id/tvPassword" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/etPassword"
+        android:background="@null"
+        android:id="@+id/llSign"
+        style="?android:attr/buttonBarStyle">
+
+        <Button
+            android:id="@+id/btOK"
+            android:text="@string/sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:onClick="signIn"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btSignUP"
+            android:text="@string/sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:onClick="signUp"
+            tools:ignore="ButtonStyle" />
+
+    </LinearLayout>
+
+    <TextView
+        android:text="@string/login_with"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAlternativeLogin"
+        android:layout_below="@id/llSign"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/tvAlternativeLogin"
+        android:background="@null"
+        android:id="@+id/llAlternativeLogin"
+        style="?android:attr/buttonBarStyle">
+
+        <ImageButton
+            android:id="@+id/btFacebook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            tools:ignore="ButtonStyle"
+            app:srcCompat="@drawable/ic_action_square_facebook"
+            android:background="@null"
+            android:onClick="loginFacebook"
+            android:contentDescription="@string/facebook" />
+
+        <ImageButton
+            android:id="@+id/btGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            tools:ignore="ButtonStyle"
+            app:srcCompat="@drawable/ic_action_google_plus_icon"
+            android:background="@null"
+            android:onClick="loginGoogle"
+            android:contentDescription="@string/google"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

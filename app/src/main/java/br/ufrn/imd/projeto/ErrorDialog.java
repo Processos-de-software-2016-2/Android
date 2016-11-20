@@ -33,11 +33,7 @@ public class ErrorDialog extends DialogFragment {
                 .setTitle(getResources().getString(R.string.error))
                 .setMessage(message)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setNegativeButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        /* Empty */
-                    }
-                });
+                .setNegativeButton(R.string.ok, null);
 
         return builder.create();
     }

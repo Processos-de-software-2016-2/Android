@@ -33,6 +33,9 @@
     <string name="selected_abilities">Selected abilities:</string>
     <string name="selected_interests">Selected interests:</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="login_with">Login with:</string>
+    <string name="enter">Enter</string>
+    <string name="logo">Logo</string>
 
     <!-- Drop down items -->
     <string-array name="tags">
