@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,23 +31,25 @@ public class RegisterActivity extends AppCompatActivity {
     private static final int RESULT_SELECT_IMAGE = 100;
     private final int RESULT_CROP = 400;
 
-    boolean register;
-    String userId;
-    boolean successfulOperation = false;
+    private boolean register;
+    private String userId;
+    private boolean successfulOperation = false;
 
-    Bitmap picture;
-    String name;
-    String email;
-    String password;
-    String passwordConfirm;
-    List<String> abilityList = new ArrayList<>();
-    String ability;
-    List<String> interestList = new ArrayList<>();
-    String interest;
+    private Bitmap picture;
+    private String name;
+    private String email;
+    private String password;
+    private String passwordConfirm;
+    private List<String> abilityList = new ArrayList<>();
+    private String ability;
+    private List<String> interestList = new ArrayList<>();
+    private String interest;
 
-    LoadingDialog loadingDialog = new LoadingDialog();
+    private final LoadingDialog loadingDialog = new LoadingDialog();
 
-    ImageButton imageButton;
+    private ImageButton imageButton;
+
+    private int registerPart = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +123,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initVariables() {
         if (register) {
             picture = BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher);
@@ -177,6 +190,8 @@ public class RegisterActivity extends AppCompatActivity {
         linearLayout.addView(v);
 
         ((TextView) findViewById(R.id.tvSelectedAbilities)).setText(ability);
+
+        ++registerPart;
     }
 
     public void addAbility(View view) {
@@ -221,6 +236,8 @@ public class RegisterActivity extends AppCompatActivity {
         else {
             findViewById(R.id.btRegister).setVisibility(View.GONE);
         }
+
+        ++registerPart;
     }
 
     public void addInterest(View view) {

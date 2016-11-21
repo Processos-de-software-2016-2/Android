@@ -21,8 +21,8 @@ import android.widget.TextView;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
-    boolean main;
-    String userId;
+    private boolean main;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,11 @@ public class ProfileActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_profile_own, menu);
 
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setLogo(R.drawable.action_bar_logo);
+            getSupportActionBar().setDisplayUseLogoEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         return true;
     }
@@ -52,28 +56,16 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // Função botão editar perfil
     public void editProfile(MenuItem item) {
         Intent intent = new Intent(this, RegisterActivity.class);
-
         intent.putExtra("register", false);
         intent.putExtra("user", ((TextView) findViewById(R.id.tvComplement)).getText().toString());
 
         startActivity(intent);
     }
 
-    public void contactUser(MenuItem item) {
-        /*
-        TODO contact user
-         */
-    }
-
-    public void backToMain(MenuItem item) {
-        /*
-        TODO back to user
-         */
-    }
-
-    public void initFields() {
+    private void initFields() {
         new LoadPhoto().execute(((BaseAppExtender) this.getApplication()).getPicture());
         ((TextView) findViewById(R.id.tvName)).setText(((BaseAppExtender) this.getApplication()).getName());
         ((TextView) findViewById(R.id.tvComplement)).setText(((BaseAppExtender) this.getApplication()).getEmail());
@@ -128,30 +120,50 @@ public class ProfileActivity extends AppCompatActivity {
         imageButton.setBackgroundResource(0);
         imageButton.setPadding(0, 0, 0, 0);
         layout3.addView(imageButton);
+        imageButton.getLayoutParams().height = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        imageButton.getLayoutParams().width = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageButton.setAdjustViewBounds(true);
 
         imageButton = new ImageButton(this);
         imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar2));
         imageButton.setBackgroundResource(0);
         imageButton.setPadding(0, 0, 0, 0);
         layout3.addView(imageButton);
+        imageButton.getLayoutParams().height = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        imageButton.getLayoutParams().width = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageButton.setAdjustViewBounds(true);
 
         imageButton = new ImageButton(this);
         imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar3));
         imageButton.setBackgroundResource(0);
         imageButton.setPadding(0, 0, 0, 0);
         layout3.addView(imageButton);
+        imageButton.getLayoutParams().height = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        imageButton.getLayoutParams().width = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageButton.setAdjustViewBounds(true);
 
         imageButton = new ImageButton(this);
         imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar4));
         imageButton.setBackgroundResource(0);
         imageButton.setPadding(0, 0, 0, 0);
         layout3.addView(imageButton);
+        imageButton.getLayoutParams().height = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        imageButton.getLayoutParams().width = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageButton.setAdjustViewBounds(true);
 
         imageButton = new ImageButton(this);
         imageButton.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar5));
         imageButton.setBackgroundResource(0);
         imageButton.setPadding(0, 0, 0, 0);
         layout3.addView(imageButton);
+        imageButton.getLayoutParams().height = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        imageButton.getLayoutParams().width = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageButton.setAdjustViewBounds(true);
     }
 
     // Thread que irá fazer o serviço de cortar a imagem do perfil

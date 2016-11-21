@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Trocando Habilidades</string>
+    <string name="abilities">Habilidades</string>
+    <string name="confirm_password">Confirmar senha</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="enter">Entrar</string>
+    <string name="error">Erro</string>
+    <string name="error0">Autenticação falhou.</string>
+    <string name="error1">Cadastro falhou.</string>
+    <string name="error2">Atualização falhou.</string>
+    <string name="error3">Seu aparelho não permite cortar a imagem.</string>
+    <string name="error4">Ação cancelada.</string>
+    <string name="interests">Interesses</string>
+    <string name="login_with">Autentique-se com:</string>
+    <string name="name">Nome</string>
+    <string name="next">Próximo</string>
+    <string name="password">Senha</string>
+    <string name="profile">Perfil</string>
+    <string name="profile_picture">Foto do perfil</string>
+    <string name="register">Cadastrar</string>
+    <string name="search">Busca</string>
+    <string name="selected_abilities">Habilidades selecionadas:</string>
+    <string name="selected_interests">Interesses selecionados:</string>
+    <string name="sign_in">Entrar</string>
+    <string name="sign_up">Cadastrar</string>
+    <string name="update">Atualizar</string>
+    <string name="username">Nome do usuário</string>
+    <string name="email">nome@dominio.com</string>
+
+    <!-- Drop down items -->
+    <string-array name="tags">
+        <item>Selecione habilidade</item>
+        <item>C++</item>
+        <item>Inglês</item>
+        <item>Violão</item>
+        <item>Android</item>
+        <item>Cozinhar</item>
+        <item>Fusão Nuclear</item>
+    </string-array>
+
+</resources>

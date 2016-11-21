@@ -14,6 +14,7 @@ public class BaseAppExtender extends Application {
     private List<String> interest = new ArrayList<>();
 
     private int size;
+    private int miniSize;
 
     public Bitmap getPicture() {
         return picture;
@@ -37,6 +38,10 @@ public class BaseAppExtender extends Application {
 
     public int getSize() {
         return size;
+    }
+
+    public int getMiniSize() {
+        return miniSize;
     }
 
     public void setPicture(Bitmap picture) {
@@ -79,5 +84,7 @@ public class BaseAppExtender extends Application {
 
     public void setSize(int size) {
         this.size = size;
+
+        miniSize = (size/4 > 70) ? size/4 : 70;
     }
 }

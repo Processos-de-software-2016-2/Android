@@ -2,13 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    android:padding="10dp">
+    android:background="@color/colorPrimary">
 
     <ProgressBar
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"
+        android:padding="10dp"/>
 
 </RelativeLayout>

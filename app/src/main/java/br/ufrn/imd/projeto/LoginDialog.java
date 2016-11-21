@@ -4,16 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
 public class LoginDialog extends DialogFragment {
-    EditText user;
-    EditText password;
+    private EditText user;
+    private EditText password;
 
     @SuppressLint("InflateParams")
     @Override

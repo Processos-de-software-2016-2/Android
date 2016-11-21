@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
-    String user;
-    String password;
-    boolean successfulLogin = false;
+    private String user;
+    private String password;
+    private boolean successfulLogin = false;
 
-    LoadingDialog loadingDialog = new LoadingDialog();
-    LoginDialog loginDialog = new LoginDialog();
+    private final LoadingDialog loadingDialog = new LoadingDialog();
+    private final LoginDialog loginDialog = new LoginDialog();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,11 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setLogo(R.drawable.action_bar_logo);
+            getSupportActionBar().setDisplayUseLogoEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         return true;
     }

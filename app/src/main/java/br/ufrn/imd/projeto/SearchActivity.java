@@ -4,10 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -18,70 +18,77 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+    }
 
-        ActionBar actionBar = getSupportActionBar();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void search(View view) {
-        // Calculo do tamanho da foto
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int height = displaymetrics.heightPixels - findViewById(R.id.rlSearchBar).getHeight();
-
         LinearLayout layout = (LinearLayout) findViewById(R.id.llSearchResults);
-        layout.removeAllViews();
-
+        int size = ((BaseAppExtender) this.getApplication()).getMiniSize();
         Button button;
         Bitmap bitmap;
         Drawable img;
+
+        layout.removeAllViews();
 
         button = new Button(this);
         bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar1);
         bitmap = new PictureCreator().getCroppedBitmap(bitmap);
         img = new BitmapDrawable(this.getResources(), bitmap);
-        img.setBounds(0, 0, height/4, height/4);
+        img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
-        button.setText(this.getResources().getString(R.string.username) + "\n" + this.getResources().getString(R.string.starpoint));
+        button.setText(this.getResources().getString(R.string.username));
         layout.addView(button);
 
         button = new Button(this);
         bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar2);
         bitmap = new PictureCreator().getCroppedBitmap(bitmap);
         img = new BitmapDrawable(this.getResources(), bitmap);
-        img.setBounds(0, 0, height/4, height/4);
+        img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
-        button.setText(this.getResources().getString(R.string.username) + "\n" + this.getResources().getString(R.string.starpoint));
+        button.setText(this.getResources().getString(R.string.username));
         layout.addView(button);
 
         button = new Button(this);
         bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar3);
         bitmap = new PictureCreator().getCroppedBitmap(bitmap);
         img = new BitmapDrawable(this.getResources(), bitmap);
-        img.setBounds(0, 0, height/4, height/4);
+        img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
-        button.setText(this.getResources().getString(R.string.username) + "\n" + this.getResources().getString(R.string.starpoint));
+        button.setText(this.getResources().getString(R.string.username));
         layout.addView(button);
 
         button = new Button(this);
         bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar4);
         bitmap = new PictureCreator().getCroppedBitmap(bitmap);
         img = new BitmapDrawable(this.getResources(), bitmap);
-        img.setBounds(0, 0, height/4, height/4);
+        img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
-        button.setText(this.getResources().getString(R.string.username) + "\n" + this.getResources().getString(R.string.starpoint));
+        button.setText(this.getResources().getString(R.string.username));
         layout.addView(button);
 
         button = new Button(this);
         bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar5);
         bitmap = new PictureCreator().getCroppedBitmap(bitmap);
         img = new BitmapDrawable(this.getResources(), bitmap);
-        img.setBounds(0, 0, height/4, height/4);
+        img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
-        button.setText(this.getResources().getString(R.string.username) + "\n" + this.getResources().getString(R.string.starpoint));
+        button.setText(this.getResources().getString(R.string.username));
         layout.addView(button);
     }
 }

@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
     tools:context="br.ufrn.imd.projeto.SearchActivity">
 
     <RelativeLayout
@@ -20,13 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/tags"
-            android:spinnerMode="dialog"
             android:id="@+id/spSearch"
             android:layout_toStartOf="@+id/ibSearch"
             android:layout_toLeftOf="@+id/ibSearch"
             android:layout_alignTop="@+id/ibSearch"
             android:layout_alignBottom="@id/ibSearch"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:popupBackground="@null"/>
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -40,47 +42,12 @@
             android:onClick="search"
             android:padding="5dp"/>
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/spSearch"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
-            android:background="@null">
-
-            <RadioButton
-                android:text="@string/abilities"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/radioButton2"
-                android:layout_weight="1"
-                android:checked="true"
-                android:textSize="12sp"
-                android:paddingStart="0dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="0dp" />
-
-            <RadioButton
-                android:text="@string/interests"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/radioButton"
-                android:layout_weight="1"
-                android:textSize="12sp"
-                android:paddingStart="0dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="0dp" />
-        </RadioGroup>
-
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbarStyle="outsideOverlay"
-        android:padding="5dp">
+        android:scrollbarStyle="outsideOverlay">
 
         <LinearLayout
             android:orientation="vertical"
