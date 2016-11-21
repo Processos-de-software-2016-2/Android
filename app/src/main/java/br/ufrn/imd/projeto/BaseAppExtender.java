@@ -13,6 +13,8 @@ public class BaseAppExtender extends Application {
     private List<String> ability = new ArrayList<>();
     private List<String> interest = new ArrayList<>();
 
+    private int size;
+
     public Bitmap getPicture() {
         return picture;
     }
@@ -31,6 +33,10 @@ public class BaseAppExtender extends Application {
 
     public List<String> getInterest() {
         return interest;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public void setPicture(Bitmap picture) {
@@ -63,12 +69,15 @@ public class BaseAppExtender extends Application {
     }
 
     public void addInterest(String interest) {
-
         this.interest.add(interest);
     }
 
     public void removeInterest(String interest) {
         int index = this.interest.indexOf(interest);
         this.interest.remove(index);
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

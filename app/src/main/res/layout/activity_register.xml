@@ -13,7 +13,8 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:id="@+id/llRegister">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,11 +23,13 @@
             android:padding="20dp">
 
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:srcCompat="@mipmap/ic_launcher"
                 android:id="@+id/ibProfilePicture"
                 android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
                 android:onClick="loadPicture"
                 android:contentDescription="@string/profile_picture" />
 
@@ -107,116 +110,12 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/box"
-            android:padding="20dp">
-
-            <TextView
-                android:text="@string/abilities"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvAbility"
-                android:textSize="14sp"
-                android:textStyle="normal|bold" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spAbilitySelect"
-                android:entries="@array/tags"
-                android:spinnerMode="dialog"
-                android:layout_below="@id/tvAbility"
-                android:layout_alignTop="@+id/ibAdd1"
-                android:layout_alignBottom="@id/ibAdd1"
-                android:layout_toStartOf="@+id/ibAdd1"
-                android:layout_toLeftOf="@+id/ibAdd1"
-                android:textSize="14sp"/>
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ibAdd1"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/tvAbility"
-                android:background="@null"
-                android:contentDescription="@string/search"
-                android:onClick="addAbility"
-                app:srcCompat="@android:drawable/ic_menu_add" />
-
-            <TextView
-                android:text="@string/selected_abilities"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvSelectedAbilities"
-                android:layout_below="@id/spAbilitySelect"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/box"
-            android:padding="20dp">
-
-            <TextView
-                android:text="@string/interests"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvInterest"
-                android:textSize="14sp"
-                android:textStyle="normal|bold" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spInterestSelect"
-                android:entries="@array/tags"
-                android:spinnerMode="dialog"
-                android:layout_below="@id/tvInterest"
-                android:layout_alignTop="@+id/ibAdd2"
-                android:layout_alignBottom="@id/ibAdd2"
-                android:layout_toStartOf="@+id/ibAdd2"
-                android:layout_toLeftOf="@+id/ibAdd2"
-                android:textSize="14sp"/>
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ibAdd2"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/tvInterest"
-                android:background="@null"
-                android:contentDescription="@string/search"
-                android:onClick="addInterest"
-                app:srcCompat="@android:drawable/ic_menu_add" />
-
-            <TextView
-                android:text="@string/selected_interests"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvSelectedInterests"
-                android:layout_below="@id/spInterestSelect"/>
-
-        </RelativeLayout>
-
         <Button
-            android:text="@string/register"
+            android:text="@string/next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btRegister"
-            android:onClick="confirmRegister"
-            android:layout_marginTop="10dp"/>
-
-        <Button
-            android:text="@string/update"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btUpdate"
-            android:onClick="confirmUpdate"
+            android:id="@+id/btGoToAbilityRegister"
+            android:onClick="goToAbilityRegister"
             android:layout_marginTop="10dp"/>
 
     </LinearLayout>

@@ -1,19 +1,16 @@
 package br.ufrn.imd.projeto;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     String password;
     boolean successfulLogin = false;
 
-    Bundle bundle = new Bundle();
-    ErrorDialog errorDialog = new ErrorDialog();
     LoadingDialog loadingDialog = new LoadingDialog();
     LoginDialog loginDialog = new LoginDialog();
 
@@ -32,6 +27,22 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        int width = displaymetrics.widthPixels;
+
+        if  (width > height) {
+            width = width / 2;
+        }
+        else {
+            height = height / 2;
+        }
+
+        int size = (width > height) ? height : width;
+
+        ((BaseAppExtender) this.getApplication()).setSize(size);
     }
 
     @Override
@@ -49,11 +60,15 @@ public class LoginActivity extends AppCompatActivity {
         user = loginDialog.getUser();
         password = loginDialog.getPassword();
 
+        loginDialog.dismiss();
+
         loadingDialog.show(getFragmentManager(), "loading");
         new ProcessLogin().execute(this);
     }
 
     public void signUp(View view) {
+        loginDialog.dismiss();
+
         Intent intent = new Intent(this, RegisterActivity.class);
 
         startActivity(intent);
@@ -143,9 +158,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             else {
-                bundle.putInt("code", 0);
-                errorDialog.setArguments(bundle);
-                errorDialog.show(getFragmentManager(), "error");
+                String errorMessage = getResources().getString(R.string.error0);
+                Toast toast = Toast.makeText(result, errorMessage, Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
 

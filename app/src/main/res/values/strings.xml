@@ -5,6 +5,8 @@
     <string name="error0">Login failed.</string>
     <string name="error1">Register failed.</string>
     <string name="error2">Update failed.</string>
+    <string name="error3">Your device doesn\'t support the crop action.</string>
+    <string name="error4">Action canceled.</string>
 
     <!-- Other stuff -->
     <string name="app_name">Trocando Habilidades</string>
@@ -37,6 +39,7 @@
     <string name="enter">Enter</string>
     <string name="logo">Logo</string>
     <string name="welcome">Welcome</string>
+    <string name="next">Next</string>
 
     <!-- Drop down items -->
     <string-array name="tags">
@@ -45,6 +48,8 @@
         <item>English</item>
         <item>Guitar</item>
         <item>Android</item>
+        <item>Cooking</item>
+        <item>Nuclear Fusion</item>
     </string-array>
 
 </resources>

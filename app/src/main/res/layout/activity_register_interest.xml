@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.ufrn.imd.projeto.RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/box"
+            android:padding="20dp">
+
+            <TextView
+                android:text="@string/interests"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvInterest"
+                android:textSize="14sp"
+                android:textStyle="normal|bold" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spInterestSelect"
+                android:entries="@array/tags"
+                android:layout_below="@id/tvInterest"
+                android:layout_alignTop="@+id/ibAdd2"
+                android:layout_alignBottom="@id/ibAdd2"
+                android:layout_toStartOf="@+id/ibAdd2"
+                android:layout_toLeftOf="@+id/ibAdd2"
+                android:textSize="14sp"
+                android:popupBackground="@null"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ibAdd2"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/tvInterest"
+                android:background="@null"
+                android:contentDescription="@string/search"
+                android:onClick="addInterest"
+                app:srcCompat="@drawable/ic_update_black_36dp" />
+
+            <TextView
+                android:text="@string/selected_interests"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSelectedInterests"
+                android:layout_below="@id/spInterestSelect"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:text="@string/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btRegister"
+            android:onClick="confirmRegister"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:text="@string/update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btUpdate"
+            android:onClick="confirmUpdate"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
