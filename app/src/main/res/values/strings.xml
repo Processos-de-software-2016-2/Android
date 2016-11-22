@@ -34,6 +34,10 @@
     <string name="login_with">Login with:</string>
     <string name="enter">Enter</string>
     <string name="next">Next</string>
+    <string name="match">Match</string>
+    <string name="send_notification">Send Notification</string>
+    <string name="cancel">Cancel</string>
+
 
     <!-- Drop down items -->
     <string-array name="tags">

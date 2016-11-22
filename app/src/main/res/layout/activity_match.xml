@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_match"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="br.ufrn.imd.projeto.MatchActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlMatch"
+        android:padding="20dp"
+        android:theme="@style/box"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:text="@string/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btHeader"
+            android:drawableLeft="@drawable/avatar5"
+            android:background="@null"
+            android:textColor="@android:color/black"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:id="@+id/spMatch"
+            android:layout_below="@+id/btHeader"
+            android:entries="@array/tags"/>
+
+        <Button
+            android:text="@string/send_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btMatch"
+            android:layout_below="@+id/spMatch"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:onClick="sendNotification"/>
+
+        <Button
+            android:text="@string/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btCancel"
+            android:layout_below="@+id/btMatch"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:onClick="backToProfile"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
