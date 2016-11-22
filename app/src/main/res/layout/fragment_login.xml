@@ -21,9 +21,9 @@
         android:id="@+id/etUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:textColor="@color/colorPrimary"
-        android:layout_below="@id/tvUser" />
+        android:layout_below="@id/tvUser"
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:id="@+id/tvPassword"

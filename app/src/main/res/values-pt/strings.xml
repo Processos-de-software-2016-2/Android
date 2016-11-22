@@ -27,6 +27,9 @@
     <string name="update">Atualizar</string>
     <string name="username">Nome do usuário</string>
     <string name="email">nome@dominio.com</string>
+    <string name="match">Contato</string>
+    <string name="send_notification">Enviar notificação</string>
+    <string name="cancel">Cancelar</string>
 
     <!-- Drop down items -->
     <string-array name="tags">

@@ -1,11 +1,16 @@
 package br.ufrn.imd.projeto;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 public class MatchActivity extends AppCompatActivity {
 
@@ -13,6 +18,14 @@ public class MatchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
+
+        Button button = (Button) findViewById(R.id.btHeader);
+        int size = ((BaseAppExtender) this.getApplication()).getMiniSize();
+        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar4);
+        bitmap = new PictureCreator().getCroppedBitmap(bitmap);
+        Drawable img = new BitmapDrawable(this.getResources(), bitmap);
+        img.setBounds(0, 0, size, size);
+        button.setCompoundDrawables(img, null, null, null);
     }
 
     @Override
@@ -33,7 +46,7 @@ public class MatchActivity extends AppCompatActivity {
     }
 
     public void sendNotification(View view) {
-        //TODO implement notification sending
+        // TODO implementar envio de notificação
     }
 
     public void backToProfile(View view) {

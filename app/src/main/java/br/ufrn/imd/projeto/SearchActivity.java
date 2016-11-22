@@ -1,5 +1,6 @@
 package br.ufrn.imd.projeto;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -53,6 +54,13 @@ public class SearchActivity extends AppCompatActivity {
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MatchActivity.class);
+                startActivity(i);
+            }
+        });
         layout.addView(button);
 
         button = new Button(this);
@@ -62,6 +70,13 @@ public class SearchActivity extends AppCompatActivity {
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MatchActivity.class);
+                startActivity(i);
+            }
+        });
         layout.addView(button);
 
         button = new Button(this);
@@ -71,6 +86,13 @@ public class SearchActivity extends AppCompatActivity {
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MatchActivity.class);
+                startActivity(i);
+            }
+        });
         layout.addView(button);
 
         button = new Button(this);
@@ -80,6 +102,13 @@ public class SearchActivity extends AppCompatActivity {
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MatchActivity.class);
+                startActivity(i);
+            }
+        });
         layout.addView(button);
 
         button = new Button(this);
@@ -89,6 +118,13 @@ public class SearchActivity extends AppCompatActivity {
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MatchActivity.class);
+                startActivity(i);
+            }
+        });
         layout.addView(button);
     }
 }
