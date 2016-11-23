@@ -9,19 +9,33 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class RegisterActivity extends AppCompatActivity {
+    private static final String TAG = "insert_values_server";
     boolean register;
     String userId;
     boolean successfulOperation = false;
+    static int age=45;
+    static int id=31;
 
     Bitmap picture;
     String name;
@@ -65,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void initVariables() {
         if (register) {
+            Toast.makeText(this,"1",Toast.LENGTH_LONG).show();
             picture = BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher);
             name = "";
             email = "";
@@ -72,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
             interest = getResources().getString(R.string.selected_interests);
         }
         else {
+            Toast.makeText(this,"2",Toast.LENGTH_LONG).show();
             picture = ((BaseAppExtender) this.getApplication()).getPicture();
             name = ((BaseAppExtender) this.getApplication()).getName();
             email = ((BaseAppExtender) this.getApplication()).getEmail();
@@ -130,6 +146,38 @@ public class RegisterActivity extends AppCompatActivity {
         textView.setText(listInterest);
     }
 
+    public void request_server_insert(final Interface_request_call callback,User us){
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UserService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        UserService UserAPI = retrofit.create(UserService.class);
+
+        Call<Void> callPostUser = UserAPI.register_user(new User(us.email,us.age,us.password,us.id,us.name));
+        callPostUser.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+                    Log.i(TAG, "erroPost: " + response.code());
+                    Toast.makeText(getApplicationContext(),"Usuário já existe!",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(),"Post executado",Toast.LENGTH_LONG).show();
+                    callback.set_user_request();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"Falha na conexão!",Toast.LENGTH_LONG).show();
+                Log.i(TAG, "erroPost: " + t.getMessage());
+            }
+        });
+    }
     public void confirmRegister(View view) {
         ImageButton imageButton = (ImageButton) findViewById(R.id.ibProfilePicture);
 
@@ -141,8 +189,18 @@ public class RegisterActivity extends AppCompatActivity {
         ability = ((TextView) findViewById(R.id.tvSelectedAbilities)).getText().toString();
         interest = ((TextView) findViewById(R.id.tvSelectedInterests)).getText().toString();
 
-        loadingDialog.show(getFragmentManager(), "loading");
-        new ProcessRegister().execute(this);
+
+        User us = new User(email,age++,password,id++,name);
+
+        request_server_insert(new Interface_request_call() {
+            @Override
+            public void set_user_request() {
+                loadingDialog.show(getFragmentManager(), "loading");
+                new ProcessRegister().execute(getApplicationContext());
+            }
+        },us);
+        /*loadingDialog.show(getFragmentManager(), "loading");
+        new ProcessRegister().execute(this);*/
     }
 
     private boolean checkRegister(Bitmap picture, String name, String email, String password, String ability, String interest) {
@@ -160,6 +218,8 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     public void confirmUpdate(View view) {
         ImageButton imageButton = (ImageButton) findViewById(R.id.ibProfilePicture);
 
@@ -171,8 +231,8 @@ public class RegisterActivity extends AppCompatActivity {
         ability = ((TextView) findViewById(R.id.tvSelectedAbilities)).getText().toString();
         interest = ((TextView) findViewById(R.id.tvSelectedInterests)).getText().toString();
 
-        loadingDialog.show(getFragmentManager(), "loading");
-        new ProcessUpdate().execute(this);
+        /*loadingDialog.show(getFragmentManager(), "loading");
+        new ProcessUpdate().execute(this);*/
     }
 
     private boolean checkUpdate(Bitmap picture, String name, String email, String password, String ability, String interest) {
