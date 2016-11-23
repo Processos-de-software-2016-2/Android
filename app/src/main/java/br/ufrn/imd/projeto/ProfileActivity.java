@@ -65,6 +65,24 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void editAbility(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        intent.putExtra("register", false);
+        intent.putExtra("part", 1);
+        intent.putExtra("user", ((TextView) findViewById(R.id.tvComplement)).getText().toString());
+
+        startActivity(intent);
+    }
+
+    public void editInterest(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        intent.putExtra("register", false);
+        intent.putExtra("part", 2);
+        intent.putExtra("user", ((TextView) findViewById(R.id.tvComplement)).getText().toString());
+
+        startActivity(intent);
+    }
+
     private void initFields() {
         new LoadPhoto().execute(((BaseAppExtender) this.getApplication()).getPicture());
         ((TextView) findViewById(R.id.tvName)).setText(((BaseAppExtender) this.getApplication()).getName());

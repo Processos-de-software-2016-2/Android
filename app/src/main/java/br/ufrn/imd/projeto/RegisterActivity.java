@@ -38,8 +38,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Bitmap picture;
     private String name;
     private String email;
-    private String password;
-    private String passwordConfirm;
+    private String password = "";
+    private String passwordConfirm = "";
     private List<String> abilityList = new ArrayList<>();
     private String ability;
     private List<String> interestList = new ArrayList<>();
@@ -63,15 +63,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         register = getIntent().getBooleanExtra("register", true);
+        registerPart = getIntent().getIntExtra("part", 0);
         userId = getIntent().getStringExtra("user");
 
         initVariables();
 
-        initFields();
-
-        imageButton = (ImageButton) findViewById(R.id.ibProfilePicture);
-        imageButton.getLayoutParams().width = ((BaseAppExtender) this.getApplication()).getSize();
-        imageButton.getLayoutParams().height = ((BaseAppExtender) this.getApplication()).getSize();
+        inflateView();
     }
 
     @Override
@@ -125,9 +122,37 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
+
+        if (register) {
+            switch (registerPart) {
+                case 0:
+                    if (item.getItemId() == android.R.id.home) {
+                        finish();
+                        return true;
+                    }
+                    break;
+                case 1:
+                    inflateUser();
+                    break;
+                case 2:
+                    interest = ((TextView) findViewById(R.id.tvSelectedInterests)).getText().toString();
+                    inflateAbility();
+                    break;
+            }
+
+            if (register) {
+                findViewById(R.id.btUpdate).setVisibility(View.GONE);
+            } else {
+                findViewById(R.id.btGoNextStep).setVisibility(View.GONE);
+            }
+
+            --registerPart;
+        }
+        else {
+            if (item.getItemId() == android.R.id.home) {
+                finish();
+                return true;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -160,12 +185,6 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void initFields() {
-        ((ImageButton) findViewById(R.id.ibProfilePicture)).setImageBitmap(picture);
-        ((EditText) findViewById(R.id.etName)).setText(name);
-        ((EditText) findViewById(R.id.etEmail)).setText(email);
-    }
-
     public void loadPicture(View view) {
         try {
             Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -176,6 +195,66 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    private void inflateView() {
+        switch (registerPart) {
+            case 0:
+                inflateUser();
+                break;
+            case 1:
+                inflateAbility();
+                break;
+            case 2:
+                inflateInterest();
+                break;
+        }
+
+        if (register) {
+            findViewById(R.id.btUpdate).setVisibility(View.GONE);
+        }
+        else {
+            findViewById(R.id.btGoNextStep).setVisibility(View.GONE);
+        }
+    }
+
+    private void inflateUser() {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.llRegister);
+        View view;
+
+        view = getLayoutInflater().inflate(R.layout.activity_register_user, null);
+        linearLayout.removeAllViews();
+        linearLayout.addView(view);
+
+        ((ImageButton) findViewById(R.id.ibProfilePicture)).setImageBitmap(picture);
+        ((EditText) findViewById(R.id.etName)).setText(name);
+        ((EditText) findViewById(R.id.etEmail)).setText(email);
+
+        imageButton = (ImageButton) findViewById(R.id.ibProfilePicture);
+        imageButton.getLayoutParams().width = ((BaseAppExtender) this.getApplication()).getSize();
+        imageButton.getLayoutParams().height = ((BaseAppExtender) this.getApplication()).getSize();
+    }
+
+    private void inflateAbility() {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.llRegister);
+        View view;
+
+        view = getLayoutInflater().inflate(R.layout.activity_register_ability, null);
+        linearLayout.removeAllViews();
+        linearLayout.addView(view);
+
+        ((TextView) findViewById(R.id.tvSelectedAbilities)).setText(ability);
+    }
+
+    private void inflateInterest() {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.llRegister);
+        View view;
+
+        view = getLayoutInflater().inflate(R.layout.activity_register_interest, null);
+        linearLayout.removeAllViews();
+        linearLayout.addView(view);
+
+        ((TextView) findViewById(R.id.tvSelectedInterests)).setText(interest);
+    }
+
     public void goToAbilityRegister(View view) {
         picture = ((BitmapDrawable)imageButton.getDrawable()).getBitmap();
         name = ((EditText) findViewById(R.id.etName)).getText().toString();
@@ -183,15 +262,9 @@ public class RegisterActivity extends AppCompatActivity {
         password = ((EditText) findViewById(R.id.etPassword)).getText().toString();
         passwordConfirm = ((EditText) findViewById(R.id.etConfirmPassword)).getText().toString();
 
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.llRegister);
-        View v = getLayoutInflater().inflate(R.layout.activity_register_ability, null);
-
-        linearLayout.removeAllViews();
-        linearLayout.addView(v);
-
-        ((TextView) findViewById(R.id.tvSelectedAbilities)).setText(ability);
-
         ++registerPart;
+
+        inflateView();
     }
 
     public void addAbility(View view) {
@@ -222,22 +295,9 @@ public class RegisterActivity extends AppCompatActivity {
     public void goToInterestRegister(View view) {
         ability = ((TextView) findViewById(R.id.tvSelectedAbilities)).getText().toString();
 
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.llRegister);
-        View v = getLayoutInflater().inflate(R.layout.activity_register_interest, null);
-
-        linearLayout.removeAllViews();
-        linearLayout.addView(v);
-
-        ((TextView) findViewById(R.id.tvSelectedInterests)).setText(interest);
-
-        if (register) {
-            findViewById(R.id.btUpdate).setVisibility(View.GONE);
-        }
-        else {
-            findViewById(R.id.btRegister).setVisibility(View.GONE);
-        }
-
         ++registerPart;
+
+        inflateView();
     }
 
     public void addInterest(View view) {
@@ -288,7 +348,21 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void confirmUpdate(View view) {
-        interest = ((TextView) findViewById(R.id.tvSelectedInterests)).getText().toString();
+        switch(registerPart) {
+            case 0:
+                picture = ((BitmapDrawable)imageButton.getDrawable()).getBitmap();
+                name = ((EditText) findViewById(R.id.etName)).getText().toString();
+                email = ((EditText) findViewById(R.id.etEmail)).getText().toString();
+                password = ((EditText) findViewById(R.id.etPassword)).getText().toString();
+                passwordConfirm = ((EditText) findViewById(R.id.etConfirmPassword)).getText().toString();
+                break;
+            case 1:
+                ability = ((TextView) findViewById(R.id.tvSelectedAbilities)).getText().toString();
+                break;
+            case 2:
+                interest = ((TextView) findViewById(R.id.tvSelectedInterests)).getText().toString();
+                break;
+        }
 
         loadingDialog.show(getFragmentManager(), "loading");
         new ProcessUpdate().execute(this);

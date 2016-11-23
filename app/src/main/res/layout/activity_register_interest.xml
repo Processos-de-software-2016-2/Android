@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:padding="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -66,7 +67,7 @@
             android:text="@string/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btRegister"
+            android:id="@+id/btGoNextStep"
             android:onClick="confirmRegister"
             android:layout_marginTop="10dp"/>
 

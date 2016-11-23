@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_profile"
     android:orientation="vertical"
@@ -87,6 +88,19 @@
 
         </LinearLayout>
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_mode_edit_black_18dp"
+            android:id="@+id/ibEditAbility"
+            android:layout_alignTop="@id/llAbilities"
+            android:layout_alignRight="@id/llAbilities"
+            android:layout_alignEnd="@id/llAbilities"
+            android:contentDescription="@string/edit_profile"
+            android:background="@null"
+            android:onClick="editAbility"
+            android:padding="15dp"/>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -101,6 +115,19 @@
             android:padding="20dp">
 
         </LinearLayout>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_mode_edit_black_18dp"
+            android:id="@+id/ibEditInterest"
+            android:layout_alignTop="@id/llInterests"
+            android:layout_alignRight="@id/llInterests"
+            android:layout_alignEnd="@id/llInterests"
+            android:contentDescription="@string/edit_profile"
+            android:background="@null"
+            android:onClick="editInterest"
+            android:padding="15dp"/>
 
         <View
             android:layout_width="match_parent"

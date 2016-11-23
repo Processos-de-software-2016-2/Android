@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:padding="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -66,8 +67,16 @@
             android:text="@string/next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btGoToAbilityRegister"
+            android:id="@+id/btGoNextStep"
             android:onClick="goToInterestRegister"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:text="@string/update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btUpdate"
+            android:onClick="confirmUpdate"
             android:layout_marginTop="10dp"/>
 
     </LinearLayout>

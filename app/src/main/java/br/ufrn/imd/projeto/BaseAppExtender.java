@@ -85,6 +85,6 @@ public class BaseAppExtender extends Application {
     public void setSize(int size) {
         this.size = size;
 
-        miniSize = (size/4 > 70) ? size/4 : 70;
+        miniSize = (size/3 > 70) ? size/3 : 70;
     }
 }
