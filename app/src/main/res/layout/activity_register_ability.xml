@@ -52,7 +52,7 @@
                 android:background="@null"
                 android:contentDescription="@string/search"
                 android:onClick="addAbility"
-                app:srcCompat="@drawable/ic_update_black_36dp"
+                app:srcCompat="@drawable/ic_add_circle_outline_black_36dp"
                 android:padding="5dp"/>
 
         </RelativeLayout>

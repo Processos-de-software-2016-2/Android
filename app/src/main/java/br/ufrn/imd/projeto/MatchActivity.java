@@ -56,7 +56,7 @@ public class MatchActivity extends AppCompatActivity {
     }
 
     public void backToProfile(View view) {
-        Intent intent = new Intent(this, ProfileActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }
