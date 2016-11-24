@@ -10,15 +10,24 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class SearchActivity extends AppCompatActivity {
+    String searchTerm = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        String[] items = getResources().getStringArray(R.array.tags);
+
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.acSearch);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        autoCompleteTextView.setAdapter(adapter);
     }
 
     @Override
@@ -47,6 +56,8 @@ public class SearchActivity extends AppCompatActivity {
 
         layout.removeAllViews();
 
+        searchTerm = ((AutoCompleteTextView) findViewById(R.id.acSearch)).getText().toString();
+
         button = new Button(this);
         bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar1);
         bitmap = new PictureCreator().getCroppedBitmap(bitmap);
@@ -58,6 +69,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MatchActivity.class);
+                i.putExtra("ability", searchTerm);
                 startActivity(i);
             }
         });
@@ -74,6 +86,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MatchActivity.class);
+                i.putExtra("ability", searchTerm);
                 startActivity(i);
             }
         });
@@ -90,6 +103,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MatchActivity.class);
+                i.putExtra("ability", searchTerm);
                 startActivity(i);
             }
         });
@@ -106,6 +120,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MatchActivity.class);
+                i.putExtra("ability", searchTerm);
                 startActivity(i);
             }
         });
@@ -122,6 +137,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MatchActivity.class);
+                i.putExtra("ability", searchTerm);
                 startActivity(i);
             }
         });

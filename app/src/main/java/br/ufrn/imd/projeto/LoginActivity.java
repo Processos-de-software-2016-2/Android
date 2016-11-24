@@ -33,14 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         int height = displaymetrics.heightPixels;
         int width = displaymetrics.widthPixels;
 
-        if  (width > height) {
-            width = width / 2;
-        }
-        else {
-            height = height / 2;
-        }
-
-        int size = (width > height) ? height : width;
+        int size = (width < height) ? width/2 : height/2;
 
         ((BaseAppExtender) this.getApplication()).setSize(size);
     }

@@ -41,7 +41,6 @@
 
     <!-- Drop down items -->
     <string-array name="tags">
-        <item>Select skill</item>
         <item>C++</item>
         <item>English</item>
         <item>Guitar</item>
@@ -49,5 +48,9 @@
         <item>Cooking</item>
         <item>Nuclear Fusion</item>
     </string-array>
+    <string name="error5">Choose a valid ability.</string>
+    <string name="error6">Choose a valid interest.</string>
+    <string name="emptyAbility">No abilities yet.</string>
+    <string name="emptyInterest">No interests yet.</string>
 
 </resources>

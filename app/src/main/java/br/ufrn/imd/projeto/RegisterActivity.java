@@ -8,23 +8,28 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -50,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageButton imageButton;
 
     private int registerPart = 0;
+    String[] items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,8 @@ public class RegisterActivity extends AppCompatActivity {
         register = getIntent().getBooleanExtra("register", true);
         registerPart = getIntent().getIntExtra("part", 0);
         userId = getIntent().getStringExtra("user");
+
+        items = getResources().getStringArray(R.array.tags);
 
         initVariables();
 
@@ -183,6 +191,9 @@ public class RegisterActivity extends AppCompatActivity {
                 interest += "\n\t" + interestList.get(i);
             }
         }
+
+        if (abilityList.isEmpty()) ability += "\n\t" + getResources().getString(R.string.emptyAbility);
+        if (interestList.isEmpty()) interest += "\n\t" + getResources().getString(R.string.emptyInterest);
     }
 
     public void loadPicture(View view) {
@@ -241,7 +252,13 @@ public class RegisterActivity extends AppCompatActivity {
         linearLayout.removeAllViews();
         linearLayout.addView(view);
 
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.acAbilitySelect);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        autoCompleteTextView.setAdapter(adapter);
+
         ((TextView) findViewById(R.id.tvSelectedAbilities)).setText(ability);
+
+        refreshAbilityList();
     }
 
     private void inflateInterest() {
@@ -252,7 +269,13 @@ public class RegisterActivity extends AppCompatActivity {
         linearLayout.removeAllViews();
         linearLayout.addView(view);
 
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.acInterestSelect);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        autoCompleteTextView.setAdapter(adapter);
+
         ((TextView) findViewById(R.id.tvSelectedInterests)).setText(interest);
+
+        refreshInterestList();
     }
 
     public void goToAbilityRegister(View view) {
@@ -267,28 +290,60 @@ public class RegisterActivity extends AppCompatActivity {
         inflateView();
     }
 
-    public void addAbility(View view) {
-        Spinner spinner = (Spinner) findViewById(R.id.spAbilitySelect);
-        TextView textView = (TextView) findViewById(R.id.tvSelectedAbilities);
+    public void addAbility(final View view) {
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.acAbilitySelect);
+        String newAbility = autoCompleteTextView.getText().toString();
 
-        if (spinner.getSelectedItemPosition() > 0) {
-            String newAbility = spinner.getSelectedItem().toString();
-            String listAbility;
-
+        if (Arrays.asList(items).contains(newAbility)) {
             if (abilityList.contains(newAbility)) {
                 abilityList.remove(abilityList.indexOf(newAbility));
-            }
-            else {
+            } else {
                 abilityList.add(newAbility);
             }
 
-            listAbility = getResources().getString(R.string.selected_abilities);
+            refreshAbilityList();
+        }
+        else {
+            String errorMessage = getResources().getString(R.string.error5);
+            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
 
-            for (int i = 0; i < abilityList.size(); ++i) {
-                listAbility += "\n\t" + abilityList.get(i);
-            }
+    private void refreshAbilityList() {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.llSelectedAbilities);
+        TextView textView = (TextView) findViewById(R.id.tvSelectedAbilities);
+        String listAbility = getResources().getString(R.string.selected_abilities);
+        Button button;
+        Bitmap bitmap;
+        Drawable img;
 
-            textView.setText(listAbility);
+        layout.removeAllViews();
+
+        if (abilityList.isEmpty()) listAbility += "\n\t" + getResources().getString(R.string.emptyAbility);
+
+        textView.setText(listAbility);
+
+        bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_clear_black_18dp);
+        img = new BitmapDrawable(this.getResources(), bitmap);
+        img.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        for (int i = 0; i < abilityList.size(); ++i) {
+            final int j = i;
+            button = new Button(this);
+            button.setCompoundDrawables(null, null, img, null);
+            button.setText(abilityList.get(i));
+            button.setBackgroundResource(0);
+            button.setPadding(5, 3, 5, 3);
+            button.setGravity(Gravity.START);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    abilityList.remove(j);
+                    refreshAbilityList();
+                }
+            });
+            layout.addView(button);
         }
     }
 
@@ -301,13 +356,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void addInterest(View view) {
-        Spinner spinner = (Spinner) findViewById(R.id.spInterestSelect);
-        TextView textView = (TextView) findViewById(R.id.tvSelectedInterests);
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.acInterestSelect);
+        String newInterest = autoCompleteTextView.getText().toString();
 
-        if (spinner.getSelectedItemPosition() > 0) {
-            String newInterest = spinner.getSelectedItem().toString();
-            String listInterest;
-
+        if (Arrays.asList(items).contains(newInterest)) {
             if (interestList.contains(newInterest)) {
                 interestList.remove(interestList.indexOf(newInterest));
             }
@@ -315,18 +367,68 @@ public class RegisterActivity extends AppCompatActivity {
                 interestList.add(newInterest);
             }
 
-            listInterest = getResources().getString(R.string.selected_interests);
+            refreshInterestList();
+        }
+        else {
+            String errorMessage = getResources().getString(R.string.error6);
+            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
 
-            for (int i = 0; i < interestList.size(); ++i) {
-                listInterest += "\n\t" + interestList.get(i);
-            }
+    private void refreshInterestList() {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.llSelectedInterests);
+        TextView textView = (TextView) findViewById(R.id.tvSelectedInterests);
+        String listInterest = getResources().getString(R.string.selected_interests);
+        Button button;
+        Bitmap bitmap;
+        Drawable img;
 
-            textView.setText(listInterest);
+        layout.removeAllViews();
+
+        if (interestList.isEmpty()) listInterest += "\n\t" + getResources().getString(R.string.emptyInterest);
+
+        textView.setText(listInterest);
+
+        bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_clear_black_18dp);
+        img = new BitmapDrawable(this.getResources(), bitmap);
+        img.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        for (int i = 0; i < interestList.size(); ++i) {
+            final int j = i;
+            button = new Button(this);
+            button.setCompoundDrawables(null, null, img, null);
+            button.setText(interestList.get(i));
+            button.setBackgroundResource(0);
+            button.setPadding(5, 3, 5, 3);
+            button.setGravity(Gravity.START);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    interestList.remove(j);
+                    refreshInterestList();
+                }
+            });
+            layout.addView(button);
         }
     }
 
     public void confirmRegister(View view) {
-        interest = ((TextView) findViewById(R.id.tvSelectedInterests)).getText().toString();
+        switch(registerPart) {
+            case 0:
+                picture = ((BitmapDrawable)imageButton.getDrawable()).getBitmap();
+                name = ((EditText) findViewById(R.id.etName)).getText().toString();
+                email = ((EditText) findViewById(R.id.etEmail)).getText().toString();
+                password = ((EditText) findViewById(R.id.etPassword)).getText().toString();
+                passwordConfirm = ((EditText) findViewById(R.id.etConfirmPassword)).getText().toString();
+                break;
+            case 1:
+                ability = ((TextView) findViewById(R.id.tvSelectedAbilities)).getText().toString();
+                break;
+            case 2:
+                interest = ((TextView) findViewById(R.id.tvSelectedInterests)).getText().toString();
+                break;
+        }
 
         loadingDialog.show(getFragmentManager(), "loading");
         new ProcessRegister().execute(this);

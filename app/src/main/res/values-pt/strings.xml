@@ -33,7 +33,6 @@
 
     <!-- Drop down items -->
     <string-array name="tags">
-        <item>Selecione habilidade</item>
         <item>C++</item>
         <item>Inglês</item>
         <item>Violão</item>
@@ -41,5 +40,9 @@
         <item>Cozinhar</item>
         <item>Fusão Nuclear</item>
     </string-array>
+    <string name="error5">Escolha uma habilidade válida.</string>
+    <string name="error6">Escolha um interesse válido.</string>
+    <string name="emptyAbility">Nenhuma habilidade ainda.</string>
+    <string name="emptyInterest">Nunhum interesse ainda.</string>
 
 </resources>

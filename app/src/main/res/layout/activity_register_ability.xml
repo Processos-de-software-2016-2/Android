@@ -29,18 +29,18 @@
                 android:textSize="14sp"
                 android:textStyle="normal|bold" />
 
-            <Spinner
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spAbilitySelect"
-                android:entries="@array/tags"
+                android:id="@+id/acAbilitySelect"
                 android:layout_below="@id/tvAbility"
                 android:layout_alignTop="@+id/ibAdd1"
                 android:layout_alignBottom="@id/ibAdd1"
-                android:layout_toStartOf="@+id/ibAdd1"
+                android:layout_toStartOf="@id/ibAdd1"
                 android:layout_toLeftOf="@+id/ibAdd1"
                 android:textSize="14sp"
-                android:popupBackground="@null"/>
+                android:popupBackground="@null"
+                android:completionThreshold="1"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -52,16 +52,33 @@
                 android:background="@null"
                 android:contentDescription="@string/search"
                 android:onClick="addAbility"
-                app:srcCompat="@drawable/ic_update_black_36dp" />
+                app:srcCompat="@drawable/ic_update_black_36dp"
+                android:padding="5dp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:theme="@style/box"
+            android:padding="20dp">
 
             <TextView
                 android:text="@string/selected_abilities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvSelectedAbilities"
-                android:layout_below="@id/spAbilitySelect"/>
+                android:textStyle="normal|bold" />
 
-        </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/llSelectedAbilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@null"/>
+
+        </LinearLayout>
 
         <Button
             android:text="@string/next"

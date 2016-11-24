@@ -18,17 +18,17 @@
         android:id="@+id/rlSearchBar"
         android:padding="20dp">
 
-        <Spinner
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/tags"
-            android:id="@+id/spSearch"
+            android:id="@+id/acSearch"
             android:layout_toStartOf="@+id/ibSearch"
             android:layout_toLeftOf="@+id/ibSearch"
             android:layout_alignTop="@+id/ibSearch"
             android:layout_alignBottom="@id/ibSearch"
             android:textSize="14sp"
-            android:popupBackground="@null"/>
+            android:popupBackground="@null"
+            android:completionThreshold="1"/>
 
         <ImageButton
             android:layout_width="wrap_content"

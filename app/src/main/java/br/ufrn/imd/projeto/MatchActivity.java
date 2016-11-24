@@ -11,8 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MatchActivity extends AppCompatActivity {
+    String targetSkill = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,10 @@ public class MatchActivity extends AppCompatActivity {
         Drawable img = new BitmapDrawable(this.getResources(), bitmap);
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
+
+        targetSkill = getIntent().getStringExtra("ability");
+
+        ((TextView) findViewById(R.id.tvMatch)).setText(targetSkill);
     }
 
     @Override

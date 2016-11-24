@@ -1,5 +1,6 @@
 package br.ufrn.imd.projeto;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,7 +9,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -84,7 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initFields() {
-        new LoadPhoto().execute(((BaseAppExtender) this.getApplication()).getPicture());
+        new LoadPhoto().execute(this);
         ((TextView) findViewById(R.id.tvName)).setText(((BaseAppExtender) this.getApplication()).getName());
         ((TextView) findViewById(R.id.tvComplement)).setText(((BaseAppExtender) this.getApplication()).getEmail());
         initAbilitiesInterests();
@@ -107,6 +107,8 @@ public class ProfileActivity extends AppCompatActivity {
             s1 += "<br>\t" + abilities.get(i);
         }
 
+        if (abilities.isEmpty()) s1 += "<br>\t" + getResources().getString(R.string.emptyAbility);
+
         // A versão atual é API 24
         //noinspection deprecation
         textAb.setText(Html.fromHtml(s1));
@@ -118,6 +120,8 @@ public class ProfileActivity extends AppCompatActivity {
         for (int i = 0; i < interests.size(); ++i) {
             s2 += "<br>\t" + interests.get(i);
         }
+
+        if (interests.isEmpty()) s2 += "<br>\t" + getResources().getString(R.string.emptyInterest);
 
         // A versão atual é API 24
         //noinspection deprecation
@@ -185,27 +189,14 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     // Thread que irá fazer o serviço de cortar a imagem do perfil
-    private class LoadPhoto extends AsyncTask<Bitmap, Void, Bitmap> {
-        private int size;
+    private class LoadPhoto extends AsyncTask<Activity, Void, Bitmap> {
+        int size;
 
         @Override
-        protected Bitmap doInBackground(Bitmap... params) {
-            // Calculo do tamanho da foto do perfil
-            DisplayMetrics displaymetrics = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-            int height = displaymetrics.heightPixels;
-            int width = displaymetrics.widthPixels;
+        protected Bitmap doInBackground(Activity... params) {
+            size = ((BaseAppExtender) params[0].getApplication()).getSize();
 
-            if  (width > height) {
-                width = width / 2;
-            }
-            else {
-                height = height / 2;
-            }
-
-            size = (width > height) ? height : width;
-
-            Bitmap bitmap = params[0];
+            Bitmap bitmap = ((BaseAppExtender) params[0].getApplication()).getPicture();
             bitmap = new PictureCreator().getCroppedBitmap(bitmap);
 
             return bitmap;
