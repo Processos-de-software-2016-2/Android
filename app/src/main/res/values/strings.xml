@@ -1,4 +1,32 @@
 <resources>
+    <!-- Drop down items -->
+    <string-array name="tags">
+        <item>Android</item>
+        <item>Ballet</item>
+        <item>Chess</item>
+        <item>Cooking</item>
+        <item>Drawing</item>
+        <item>English</item>
+        <item>Fishing</item>
+        <item>Guitar</item>
+        <item>Horse Training</item>
+        <item>Internet</item>
+        <item>Juggling</item>
+        <item>Karate</item>
+        <item>Legos</item>
+        <item>Magic</item>
+        <item>Nuclear Fusion</item>
+        <item>Origami</item>
+        <item>Painting</item>
+        <item>Robotics</item>
+        <item>Survival</item>
+        <item>Tennis</item>
+        <item>Ukulele</item>
+        <item>Violin</item>
+        <item>Writing</item>
+        <item>Yoga</item>
+        <item>Zumba</item>
+    </string-array>
 
     <!-- Error messages -->
     <string name="error">Error</string>
@@ -7,6 +35,8 @@
     <string name="error2">Update failed.</string>
     <string name="error3">Your device doesn\'t support the crop action.</string>
     <string name="error4">Action canceled.</string>
+    <string name="error5">Choose a valid ability.</string>
+    <string name="error6">Choose a valid interest.</string>
 
     <!-- Other stuff -->
     <string name="app_name">Skill Exchange</string>
@@ -37,20 +67,8 @@
     <string name="match">Match</string>
     <string name="send_notification">Send notification</string>
     <string name="cancel">Cancel</string>
-
-
-    <!-- Drop down items -->
-    <string-array name="tags">
-        <item>C++</item>
-        <item>English</item>
-        <item>Guitar</item>
-        <item>Android</item>
-        <item>Cooking</item>
-        <item>Nuclear Fusion</item>
-    </string-array>
-    <string name="error5">Choose a valid ability.</string>
-    <string name="error6">Choose a valid interest.</string>
     <string name="emptyAbility">No abilities yet.</string>
     <string name="emptyInterest">No interests yet.</string>
+    <string name="suggestion">Want to learn something new?\nMaybe they can help you:</string>
 
 </resources>

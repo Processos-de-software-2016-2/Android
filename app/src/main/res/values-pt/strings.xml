@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Drop down items -->
+    <string-array name="tags">
+        <item>Android</item>
+        <item>Balé</item>
+        <item>Xadrez</item>
+        <item>Cozinhar</item>
+        <item>Desenhar</item>
+        <item>Inglês</item>
+        <item>Pescar</item>
+        <item>Violão</item>
+        <item>Treinamento de Cavalos</item>
+        <item>Internet</item>
+        <item>Malabarismo</item>
+        <item>Caratê</item>
+        <item>Legos</item>
+        <item>Mágica</item>
+        <item>Fusão Nuclear</item>
+        <item>Origami</item>
+        <item>Pintura</item>
+        <item>Robótica</item>
+        <item>Sobrevivência</item>
+        <item>Tênis</item>
+        <item>Ukulele</item>
+        <item>Violino</item>
+        <item>Escrever</item>
+        <item>Ioga</item>
+        <item>Zumba</item>
+    </string-array>
+
     <string name="app_name">Trocando Habilidades</string>
     <string name="abilities">Habilidades</string>
     <string name="confirm_password">Confirmar senha</string>
@@ -30,19 +59,10 @@
     <string name="match">Contato</string>
     <string name="send_notification">Enviar notificação</string>
     <string name="cancel">Cancelar</string>
-
-    <!-- Drop down items -->
-    <string-array name="tags">
-        <item>C++</item>
-        <item>Inglês</item>
-        <item>Violão</item>
-        <item>Android</item>
-        <item>Cozinhar</item>
-        <item>Fusão Nuclear</item>
-    </string-array>
     <string name="error5">Escolha uma habilidade válida.</string>
     <string name="error6">Escolha um interesse válido.</string>
     <string name="emptyAbility">Nenhuma habilidade ainda.</string>
     <string name="emptyInterest">Nunhum interesse ainda.</string>
+    <string name="suggestion">Quer aprender algo novo?\nTalvez eles possam ajudá-lo:</string>
 
 </resources>

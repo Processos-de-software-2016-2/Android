@@ -36,6 +36,9 @@
         <activity
             android:name=".MatchActivity"
             android:label="@string/match" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"/>
     </application>
 
 </manifest>

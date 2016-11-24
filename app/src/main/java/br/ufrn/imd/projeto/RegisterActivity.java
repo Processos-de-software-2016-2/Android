@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageButton imageButton;
 
     private int registerPart = 0;
-    String[] items;
+    private String[] items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -538,7 +538,11 @@ public class RegisterActivity extends AppCompatActivity {
             loadingDialog.dismiss();
 
             if (successfulOperation) {
-                Intent intent = new Intent(result, ProfileActivity.class);
+                String message = getResources().getString(R.string.register) + " " + getResources().getString(R.string.ok);
+                Toast toast = Toast.makeText(result, message, Toast.LENGTH_SHORT);
+                toast.show();
+
+                Intent intent = new Intent(result, MainActivity.class);
                 intent.putExtra("main", true);
                 intent.putExtra("user", email);
                 startActivity(intent);

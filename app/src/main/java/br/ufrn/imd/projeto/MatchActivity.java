@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MatchActivity extends AppCompatActivity {
-    String targetSkill = "";
+    private String targetSkill = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
