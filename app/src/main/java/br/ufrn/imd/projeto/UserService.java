@@ -25,4 +25,18 @@ public interface UserService {
     @GET("user/email/{em}")
     Call<List<User>> getUserByEmail(@Path("em") String email);
 
+    @GET("/login/{email}/{password}")
+    Call<StateLogin> getInfoLogin(@Path("email") String email, @Path("password") String password);
+
+    @GET("/user/{id}/skills")
+    Call<List<Skill>> getSkillsUser(@Path("id") int id);
+
+    @POST("users/skills")
+    Call<Void> insert_skill_user(@Body Skill_ID skill_id);
+
+    @GET("skill/autocomplete/{name}")
+    Call<List<Skill>> skill_by_name(@Path("name") String name);
+
+    @POST("users/interests")
+    Call<Void> insert_interest_user(@Body Skill_ID skill_id);
 }

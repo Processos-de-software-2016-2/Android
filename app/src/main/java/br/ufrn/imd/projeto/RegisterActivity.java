@@ -1,14 +1,11 @@
 package br.ufrn.imd.projeto;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -80,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void initVariables() {
         if (register) {
             Toast.makeText(this,"1",Toast.LENGTH_LONG).show();
-            picture = BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher);
+            picture = BitmapFactory.decodeResource(this.getResources(),R.mipmap.ic_launcher);
             name = "";
             email = "";
             ability = getResources().getString(R.string.selected_abilities);
@@ -146,7 +143,11 @@ public class RegisterActivity extends AppCompatActivity {
         textView.setText(listInterest);
     }
 
-    public void request_server_insert(final Interface_request_call callback,User us){
+    /*here the first post is performed, a user is inserted into database*/
+
+    public void request_server_email_insert(final Get_Email_Skill_Callback callback, final User us){
+        Log.i(TAG,"three");
+
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
@@ -158,19 +159,28 @@ public class RegisterActivity extends AppCompatActivity {
 
         UserService UserAPI = retrofit.create(UserService.class);
 
+        /*finally send the user of the sign up activity*/
+
         Call<Void> callPostUser = UserAPI.register_user(new User(us.email,us.age,us.password,us.id,us.name));
+
+        /*Assyncronous task in background*/
         callPostUser.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (!response.isSuccessful()) {
                     Log.i(TAG, "erroPost: " + response.code());
                     Toast.makeText(getApplicationContext(),"Usuário já existe!",Toast.LENGTH_LONG).show();
-                } else {
+                } else { /*Successful post*/
+                    Log.i(TAG,"four");
                     Toast.makeText(getApplicationContext(),"Post executado",Toast.LENGTH_LONG).show();
-                    callback.set_user_request();
+
+                    /*'return' the id of the user inserted */
+                    Log.i(TAG,"onde "+us.email);
+                    //callback.set_user_request(us.email);
+                    callback.email_retrieved(us.email);
                 }
             }
-
+            /*Conexion problem*/
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),"Falha na conexão!",Toast.LENGTH_LONG).show();
@@ -178,10 +188,45 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void request_server_id_insert(final Email_callback callback, String email){
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UserService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        UserService UserAPI = retrofit.create(UserService.class);
+
+        Call<List<User>> userA = UserAPI.getUserByEmail(email);
+
+        userA.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if(response.isSuccessful()) {
+                    List<User> user_added = response.body();
+
+                    callback.setEmailCallback(user_added.get(0).id);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    /*When the button of registration is clicked, this function get and send data towards the server*/
+
     public void confirmRegister(View view) {
+        Log.i(TAG, "one");
         ImageButton imageButton = (ImageButton) findViewById(R.id.ibProfilePicture);
 
-        picture = ((BitmapDrawable)imageButton.getDrawable()).getBitmap();
+        picture = ((BitmapDrawable) imageButton.getDrawable()).getBitmap();
         name = ((EditText) findViewById(R.id.etName)).getText().toString();
         email = ((EditText) findViewById(R.id.etEmail)).getText().toString();
         password = ((EditText) findViewById(R.id.etPassword)).getText().toString();
@@ -189,19 +234,170 @@ public class RegisterActivity extends AppCompatActivity {
         ability = ((TextView) findViewById(R.id.tvSelectedAbilities)).getText().toString();
         interest = ((TextView) findViewById(R.id.tvSelectedInterests)).getText().toString();
 
+        Log.i(TAG, ability);
+        Log.i(TAG, interest);
 
-        User us = new User(email,age++,password,id++,name);
+        /*Creates the vector of abilities and interests to send*/
+        final String[] abilitiesToinsert = ability.split("\n");
+        final String[] interestsToinsert = interest.split("\n");
 
-        request_server_insert(new Interface_request_call() {
+        /*This user will be sent to the server*/
+        User us = new User(email, age++, password, id++, name);
+        Log.i(TAG, "two");
+
+        /*send the user and wait for the response email using a callback*/
+        request_server_email_insert(new Get_Email_Skill_Callback() {
             @Override
-            public void set_user_request() {
-                loadingDialog.show(getFragmentManager(), "loading");
-                new ProcessRegister().execute(getApplicationContext());
+            public void email_retrieved(String email_send) {
+                /*send the email and wait for information about the id of the user*/
+                request_server_id_insert(new Email_callback() {
+                    @Override
+                    public void setEmailCallback(int id) {
+
+                        for (int i = 1; i < abilitiesToinsert.length; i++) {
+
+                            abilitiesToinsert[i] = abilitiesToinsert[i].replaceAll("\\s", "");
+
+                            insert_ability_aux(abilitiesToinsert[i], id, new Insert_Skill_Call() {
+                                @Override
+                                public void Skill_Insert(int id_skill, int id_user) {
+                                    Gson gson = new GsonBuilder()
+                                            .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                                            .create();
+
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl(UserService.BASE_URL)
+                                            .addConverterFactory(GsonConverterFactory.create(gson))
+                                            .build();
+
+                                    UserService UserAPI = retrofit.create(UserService.class);
+
+                                    String idu = id_user+"";
+                                    String idk = id_skill+"";
+
+                                    Log.i(TAG, "fdjslbababa " + id_user + " " + id_skill);
+                                    Call<Void> callPostSkill = UserAPI.insert_skill_user(new Skill_ID(idu,idk));
+
+                                    callPostSkill.enqueue(new Callback<Void>() {
+                                        @Override
+                                        public void onResponse(Call<Void> call, Response<Void> response) {
+                                            Log.i(TAG,"sucesso");
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Void> call, Throwable t) {
+
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+                        //=============================================================================
+
+                        for (int i = 1; i < interestsToinsert.length; i++) {
+
+                            interestsToinsert[i] = interestsToinsert[i].replaceAll("\\s", "");
+
+                            insert_ability_aux(interestsToinsert[i], id, new Insert_Skill_Call() {
+                                @Override
+                                public void Skill_Insert(int id_skill, int id_user) {
+                                    Gson gson = new GsonBuilder()
+                                            .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                                            .create();
+
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl(UserService.BASE_URL)
+                                            .addConverterFactory(GsonConverterFactory.create(gson))
+                                            .build();
+
+                                    UserService UserAPI = retrofit.create(UserService.class);
+
+                                    String idu = id_user+"";
+                                    String idk = id_skill+"";
+
+                                    Log.i(TAG, "fdjslbababa " + id_user + " " + id_skill);
+                                    Call<Void> callPostSkill = UserAPI.insert_interest_user(new Skill_ID(idu,idk));
+
+                                    callPostSkill.enqueue(new Callback<Void>() {
+                                        @Override
+                                        public void onResponse(Call<Void> call, Response<Void> response) {
+                                            Log.i(TAG,"sucesso");
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Void> call, Throwable t) {
+
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+
+
+                        //================================================================================
+                    }
+                }, email_send);
             }
-        },us);
-        /*loadingDialog.show(getFragmentManager(), "loading");
-        new ProcessRegister().execute(this);*/
+        }, us);
     }
+
+
+
+    public void insert_ability_aux(final String ability_name, final int id_user, final Insert_Skill_Call callback){
+        Log.i(TAG,"six");
+        /*Gets the id of an specific skill using her name and pass this information to a callback method*/
+
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UserService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        UserService UserAPI = retrofit.create(UserService.class);
+
+        Log.i(TAG,"seven " + ability_name);
+        /*Gets ability information of the server using her name*/
+        Call<List<Skill>> callUser = UserAPI.skill_by_name(ability_name);
+
+        callUser.enqueue(new Callback<List<Skill>>() {
+            @Override
+            public void onResponse(Call<List<Skill>> call, Response<List<Skill>> response) {
+                if(!response.isSuccessful()){
+                    Log.i(TAG,"Problema na resposta");
+                }
+                else{
+                    List<Skill> lst = response.body();
+
+                    if(lst == null)
+                        Log.i(TAG,"eight"+ lst.toString());
+                    else{
+                        Log.i(TAG,"eightdfslkl"+ lst.toString());
+                    }
+
+                    if(lst!=null && lst.size()!=0){
+                        Log.i(TAG,"nine " + id_user);
+                        callback.Skill_Insert(lst.get(0).id,id_user);
+                    }
+                    else{
+                        Log.i(TAG,"nine_branch");
+                        /*In the case where the skill is not in server a different id skill is passed*/
+                        callback.Skill_Insert(-1,id_user);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Skill>> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     private boolean checkRegister(Bitmap picture, String name, String email, String password, String ability, String interest) {
         boolean success = registerWithServer(picture, name, email, password, ability, interest);
@@ -258,74 +454,5 @@ public class RegisterActivity extends AppCompatActivity {
         ((BaseAppExtender) this.getApplication()).setAbility(abilityList);
         ((BaseAppExtender) this.getApplication()).setInterest(interestList);
     }
-
-    // Thread que irá fazer o registro
-    private class ProcessRegister extends AsyncTask<Context, Void, Context> {
-
-        @Override
-        protected Context doInBackground(Context... params) {
-            if (password.equals(passwordConfirm) && checkRegister(picture, name, email, password, ability, interest)) {
-                setUserGlobalData();
-                successfulOperation = true;
-            }
-            else {
-                successfulOperation = false;
-            }
-
-            return params[0];
-        }
-
-        @Override
-        protected void onPostExecute(Context result) {
-            loadingDialog.dismiss();
-
-            if (successfulOperation) {
-                Intent intent = new Intent(result, ProfileActivity.class);
-                intent.putExtra("main", true);
-                intent.putExtra("user", email);
-                startActivity(intent);
-            }
-            else {
-                bundle.putInt("code", 1);
-                errorDialog.setArguments(bundle);
-                errorDialog.show(getFragmentManager(), "error");
-            }
-        }
-
-    }
-
-    // Thread que irá fazer o update
-    private class ProcessUpdate extends AsyncTask<Context, Void, Context> {
-
-        @Override
-        protected Context doInBackground(Context... params) {
-            if (password.equals(passwordConfirm) && checkUpdate(picture, name, email, password, ability, interest)) {
-                setUserGlobalData();
-                successfulOperation = true;
-            }
-            else {
-                successfulOperation = false;
-            }
-
-            return params[0];
-        }
-
-        @Override
-        protected void onPostExecute(Context result) {
-            loadingDialog.dismiss();
-
-            if (successfulOperation) {
-                Intent intent = new Intent(result, ProfileActivity.class);
-                intent.putExtra("main", true);
-                intent.putExtra("user", email);
-                startActivity(intent);
-            }
-            else {
-                bundle.putInt("code", 2);
-                errorDialog.setArguments(bundle);
-                errorDialog.show(getFragmentManager(), "error");
-            }
-        }
-
-    }
 }
+
