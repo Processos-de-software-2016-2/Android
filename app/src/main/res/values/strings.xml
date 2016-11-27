@@ -39,7 +39,7 @@
     <string name="error6">Choose a valid interest.</string>
 
     <!-- Other stuff -->
-    <string name="app_name">Skill Exchange</string>
+    <string name="app_name">Lurn</string>
     <string name="ok" translatable="false">OK</string>
     <string name="profile">Profile</string>
     <string name="user" translatable="false">Email</string>
