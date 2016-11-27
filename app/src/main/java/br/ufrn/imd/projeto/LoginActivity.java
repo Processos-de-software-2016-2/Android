@@ -149,7 +149,6 @@ public class LoginActivity extends AppCompatActivity {
             loadingDialog.dismiss();
 
             if (successfulLogin) {
-                //Intent intent = new Intent(result, ProfileActivity.class);
                 Intent intent = new Intent(result, MainActivity.class);
                 intent.putExtra("main", true);
                 intent.putExtra("user", user);

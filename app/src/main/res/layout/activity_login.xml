@@ -1,33 +1,29 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="@android:color/white"
     tools:context="br.ufrn.imd.projeto.LoginActivity">
 
-    <RelativeLayout
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/logo"
+        android:id="@+id/ivLogo"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:contentDescription="@string/app_name"
+        android:padding="20dp"/>
+
+    <Button
+        android:text="@string/enter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rlLogin"
-        android:padding="20dp"
-        android:layout_centerInParent="true">
+        android:id="@+id/btEnter"
+        android:onClick="enterSystem"
+        android:layout_marginTop="10dp"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/logo"
-            android:id="@+id/ivLogo" />
-
-        <Button
-            android:text="@string/enter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btEnter"
-            android:layout_below="@+id/ivLogo"
-            android:onClick="enterSystem"/>
-    </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>

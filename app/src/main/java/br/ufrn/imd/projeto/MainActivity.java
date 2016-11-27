@@ -7,7 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.SpannableString;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username) + "\n" + suggestionTags[0]);
+        button.setGravity(Gravity.CENTER_VERTICAL);
+        button.setCompoundDrawablePadding(10);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username) + "\n" + suggestionTags[1]);
+        button.setGravity(Gravity.CENTER_VERTICAL);
+        button.setCompoundDrawablePadding(10);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username) + "\n" + suggestionTags[2]);
+        button.setGravity(Gravity.CENTER_VERTICAL);
+        button.setCompoundDrawablePadding(10);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username) + "\n" + suggestionTags[3]);
+        button.setGravity(Gravity.CENTER_VERTICAL);
+        button.setCompoundDrawablePadding(10);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
         img.setBounds(0, 0, size, size);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username) + "\n" + suggestionTags[4]);
+        button.setGravity(Gravity.CENTER_VERTICAL);
+        button.setCompoundDrawablePadding(10);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -4,6 +4,7 @@
 
     <item
         android:drawable="@mipmap/ic_launcher"
+        android:gravity="center"
         android:right="20dp"/>
 
 </layer-list>

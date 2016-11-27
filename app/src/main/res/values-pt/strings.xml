@@ -29,7 +29,6 @@
         <item>Zumba</item>
     </string-array>
 
-    <string name="app_name">Trocando Habilidades</string>
     <string name="abilities">Habilidades</string>
     <string name="confirm_password">Confirmar senha</string>
     <string name="edit_profile">Editar perfil</string>
@@ -64,5 +63,6 @@
     <string name="emptyAbility">Nenhuma habilidade ainda.</string>
     <string name="emptyInterest">Nunhum interesse ainda.</string>
     <string name="suggestion">Quer aprender algo novo?\nTalvez eles possam ajudá-lo:</string>
+    <string name="search_hint">Busca de habilidades</string>
 
 </resources>

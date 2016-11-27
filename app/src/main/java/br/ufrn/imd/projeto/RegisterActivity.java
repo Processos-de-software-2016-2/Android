@@ -546,6 +546,8 @@ public class RegisterActivity extends AppCompatActivity {
                 intent.putExtra("main", true);
                 intent.putExtra("user", email);
                 startActivity(intent);
+
+                finish();
             }
             else {
                 String errorMessage = getResources().getString(R.string.error1);
@@ -578,6 +580,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (successfulOperation) {
                 Intent intent = new Intent(result, ProfileActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("main", true);
                 intent.putExtra("user", email);
                 startActivity(intent);

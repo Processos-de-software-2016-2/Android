@@ -39,7 +39,7 @@
     <string name="error6">Choose a valid interest.</string>
 
     <!-- Other stuff -->
-    <string name="app_name">Lurn</string>
+    <string name="app_name" translatable="false">Lurn</string>
     <string name="ok" translatable="false">OK</string>
     <string name="profile">Profile</string>
     <string name="user" translatable="false">Email</string>
@@ -70,5 +70,6 @@
     <string name="emptyAbility">No abilities yet.</string>
     <string name="emptyInterest">No interests yet.</string>
     <string name="suggestion">Want to learn something new?\nMaybe they can help you:</string>
+    <string name="search_hint">Ability search</string>
 
 </resources>

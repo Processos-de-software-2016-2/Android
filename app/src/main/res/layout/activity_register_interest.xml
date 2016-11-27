@@ -30,6 +30,8 @@
                 android:textStyle="normal|bold" />
 
             <AutoCompleteTextView
+                android:inputType="textAutoComplete"
+                android:hint="@string/interests"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/acInterestSelect"
