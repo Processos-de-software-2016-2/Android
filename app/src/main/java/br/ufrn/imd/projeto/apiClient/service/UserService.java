@@ -1,7 +1,11 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.apiClient.service;
 
 import java.util.List;
 
+import br.ufrn.imd.projeto.dominio.Skill;
+import br.ufrn.imd.projeto.dominio.Skill_ID;
+import br.ufrn.imd.projeto.dominio.StateLogin;
+import br.ufrn.imd.projeto.dominio.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

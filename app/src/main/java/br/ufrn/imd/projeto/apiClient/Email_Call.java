@@ -1,4 +1,6 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.apiClient;
+
+import br.ufrn.imd.projeto.dominio.User;
 
 /**
  * Created by ronaldo on 26/11/2016.
