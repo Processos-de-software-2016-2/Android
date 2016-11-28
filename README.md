@@ -1,4 +1,5 @@
-# Projeto
+# LURN
+
 Este é o projeto final da disciplina <b>Processos de Software 2016.2</b>, do curso de <b>Tecnologia da Informação</b> da <b>Universidade Federal do Rio Grande do Norte</b>.
 Este projeto tem como objetivo construir um software que permita aos usuários combinar interesses e habilidades de forma que possam formar duplas que compartilhem conhecimento e resolvam problemas uns dos outros.
 
@@ -28,7 +29,7 @@ de tal requisição.
 
 As tecnologias escolhidas para desenvolver o projeto foram: 
 
-  * <a href="http://projects.spring.io/spring-android/">Spring framework for Android</a>
+  * <a href="https://github.com/square/retrofit/">Retrofit 2.0</a>
   * <a href="https://developer.android.com/studio/index.html?hl=pt-br">Android Studio</a>
   * <a href="https://gradle.org/getting-started-android-build/">Gradle</a>
 
