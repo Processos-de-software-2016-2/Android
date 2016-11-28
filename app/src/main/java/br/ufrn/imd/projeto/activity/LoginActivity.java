@@ -38,8 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     String user;
     String password;
     static User global_user_login;
-    List<Skill> skills_user;
-    List<Skill> interests_user;
+    static List<Skill> skills_user;
+    static List<Skill> interests_user;
 
     BaseAppExtender my_app = ((BaseAppExtender) this.getApplication());
 
