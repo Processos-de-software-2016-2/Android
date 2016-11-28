@@ -181,12 +181,9 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.i(TAG, "erroPost: " + response.code());
                     Toast.makeText(getApplicationContext(),"Usuário já existe!",Toast.LENGTH_LONG).show();
                 } else { /*Successful post*/
-                    Log.i(TAG,"four");
                     Toast.makeText(getApplicationContext(),"Post executado",Toast.LENGTH_LONG).show();
 
                     /*'return' the id of the user inserted */
-                    Log.i(TAG,"onde "+us.email);
-                    //callback.set_user_request(us.email);
                     callback.email_retrieved(us.email);
                 }
             }
@@ -285,7 +282,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     String idu = id_user+"";
                                     String idk = id_skill+"";
 
-                                    Log.i(TAG, "fdjslbababa " + id_user + " " + id_skill);
                                     Call<Void> callPostSkill = UserAPI.insert_skill_user(new Skill_ID(idu,idk));
 
                                     callPostSkill.enqueue(new Callback<Void>() {
@@ -330,7 +326,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     String idu = id_user+"";
                                     String idk = id_skill+"";
 
-                                    Log.i(TAG, "fdjslbababa " + id_user + " " + id_skill);
                                     Call<Void> callPostSkill = UserAPI.insert_interest_user(new Skill_ID(idu,idk));
 
                                     callPostSkill.enqueue(new Callback<Void>() {
@@ -386,18 +381,10 @@ public class RegisterActivity extends AppCompatActivity {
                 else{
                     List<Skill> lst = response.body();
 
-                    if(lst == null)
-                        Log.i(TAG,"eight"+ lst.toString());
-                    else{
-                        Log.i(TAG,"eightdfslkl"+ lst.toString());
-                    }
-
                     if(lst!=null && lst.size()!=0){
-                        Log.i(TAG,"nine " + id_user);
                         callback.Skill_Insert(lst.get(0).id,id_user);
                     }
                     else{
-                        Log.i(TAG,"nine_branch");
                         /*In the case where the skill is not in server a different id skill is passed*/
                         callback.Skill_Insert(-1,id_user);
                     }
