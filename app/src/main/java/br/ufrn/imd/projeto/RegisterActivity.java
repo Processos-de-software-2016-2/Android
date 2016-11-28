@@ -1,5 +1,6 @@
 package br.ufrn.imd.projeto;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -282,6 +283,10 @@ public class RegisterActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(Call<Void> call, Response<Void> response) {
                                             Log.i(TAG,"sucesso");
+                                            Toast.makeText(getApplicationContext(),"Cadastro Efetuado",Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+
+                                            startActivity(intent);
                                         }
 
                                         @Override

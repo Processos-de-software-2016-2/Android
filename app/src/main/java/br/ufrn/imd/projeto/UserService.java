@@ -39,4 +39,7 @@ public interface UserService {
 
     @POST("users/interests")
     Call<Void> insert_interest_user(@Body Skill_ID skill_id);
+
+    @GET("/user/{id}/interests")
+    Call<List<Skill>> getInterestsUser(@Path("id") int id);
 }

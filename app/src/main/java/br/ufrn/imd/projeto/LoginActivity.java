@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     String user;
     String password;
     List<Skill> skills_user;
+    List<Skill> interests_user;
 
     BaseAppExtender my_app = ((BaseAppExtender) this.getApplication());
 
@@ -307,46 +308,36 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void set_skills_callback(List<Skill> list,Application app) {
-                if(skills_user == null){
-                    Log.i(TAG, "auau");
 
-                    List<String> interest = new ArrayList<>();
-                    interest.add("Unity");
-                    interest.add("3D Modeling");
-                    interest.add("Game Engine Performance");
-                    interest.add("Cooking");
-                    Log.i(TAG, "setou user interesses");
+                retrieve_interests_signIn(new Skills_Callback() {
+                    @Override
+                    public void set_skills_callback(List<Skill> list, Application app) {
 
-                    ((BaseAppExtender) app).setPicture(picture);
-                    ((BaseAppExtender) app).setName(uLogin.name);
-                    ((BaseAppExtender) app).setEmail(uLogin.email);
-                    ((BaseAppExtender) app).setInterest(interest);
-                }
-                else{
-                    Log.i(TAG,"XX");
-                    List<String> ability = new ArrayList<>();
+                        List<String> ability = new ArrayList<>();
 
-                    for(int i=0; i < skills_user.size(); i++){
-                        ability.add(skills_user.get(i).name);
+                        if(skills_user != null) {
+                            for (int i = 0; i < skills_user.size(); i++) {
+                                ability.add(skills_user.get(i).name);
+                            }
+                        }
+                        List<String> interest = new ArrayList<>();
+
+                        if(interests_user != null){
+                            for(int i=0; i < interests_user.size(); i++){
+                                interest.add(interests_user.get(i).name);
+                            }
+                        }
+
+                        ((BaseAppExtender) app).setPicture(picture);
+                        ((BaseAppExtender) app).setName(uLogin.name);
+                        ((BaseAppExtender) app).setEmail(uLogin.email);
+                        ((BaseAppExtender) app).setAbility(ability);
+                        ((BaseAppExtender) app).setInterest(interest);
+
                     }
-                    Log.i(TAG,"XXI");
-                    Log.i(TAG, "eueu");
+                },uLogin.id, app);
+                Log.i(TAG,"XX");
 
-                    List<String> interest = new ArrayList<>();
-                    interest.add("Unity");
-                    interest.add("3D Modeling");
-                    interest.add("Game Engine Performance");
-                    interest.add("Cooking");
-                    Log.i(TAG, "setou user interesses");
-                    // Seta os dados nas variáveis que serão utilisadas pelo app em qualquer tela
-
-                    ((BaseAppExtender) app).setPicture(picture);
-                    ((BaseAppExtender) app).setName(uLogin.name);
-                    ((BaseAppExtender) app).setEmail(uLogin.email);
-                    ((BaseAppExtender) app).setAbility(ability);
-                    ((BaseAppExtender) app).setInterest(interest);
-
-                }
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
 
                 intent.putExtra("main", true);
@@ -355,6 +346,8 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG,"passou");
             }
         }, uLogin.id, this.getApplication());
+
+
         //request_abilities()
         //.getApplication
 
@@ -425,63 +418,61 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    /*void retrieve_skills_SignUp(final Skills_Callback callback) {
-        Log.i(TAG,"XV");
-        request_server_skills(new Email_callback() {
+
+
+    void retrieve_interests_signIn(final Skills_Callback callback, int id, final Application app) {
+        Log.i(TAG, "XV");
+
+        //Log.i(TAG, "third");
+        Log.i(TAG, "XIX");
+
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UserService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+
+        UserService UserAPI = retrofit.create(UserService.class);
+
+
+        Call<List<Skill>> lst = UserAPI.getInterestsUser(id);
+        Log.i(TAG, "fourth");
+        lst.enqueue(new Callback<List<Skill>>() {
             @Override
-            public void setEmailCallback(int id) {
-                if(id == -1){
-                    Log.i(TAG, "second");
-                }
-                else{
-                    //Log.i(TAG, "third");
-                    Log.i(TAG,"XIX");
-                    Gson gson = new GsonBuilder()
-                            .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                            .create();
+            public void onResponse(Call<List<Skill>> call, Response<List<Skill>> response) {
+                if (!response.isSuccessful()) {
+                    Log.i(TAG, "fifth");
+                    callback.set_skills_callback(null, app);
+                    Toast.makeText(getApplicationContext(), "erro na resposta dos interests", Toast.LENGTH_LONG).show();
+                } else {
+                    Log.i(TAG, "sixth");
 
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(UserService.BASE_URL)
-                            .addConverterFactory(GsonConverterFactory.create(gson))
-                            .build();
-
-
-                    UserService UserAPI = retrofit.create(UserService.class);
-
-
-                    Call<List<Skill>> lst = UserAPI.getSkillsUser(id);
-                    Log.i(TAG, "fourth");
-                    lst.enqueue(new Callback<List<Skill>>() {
-                        @Override
-                        public void onResponse(Call<List<Skill>> call, Response<List<Skill>> response) {
-                            if(!response.isSuccessful()){
-                                Log.i(TAG, "fifth");
-                                skills_user = null;
-                                Toast.makeText(getApplicationContext(),"erro na resposta dos skills",Toast.LENGTH_LONG).show();
-                            }
-                            else{
-                                Log.i(TAG, "sixth");
-
-                                skills_user = response.body();
-                                Log.i(TAG, "sdsqf " + skills_user.get(0).name);
-                                Toast.makeText(getApplicationContext(),"skills retornadas",Toast.LENGTH_LONG).show();
-                                Log.i(TAG,"XIX");
-                                callback.set_skills_callback(skills_user);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<Skill>> call, Throwable t) {
-                            Log.i(TAG, "seventh");
-                            skills_user = null;
-                            Toast.makeText(getApplicationContext(),"Falha no acesso ao servidor",Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    interests_user = response.body();
+                    if(interests_user!=null && interests_user.size() != 0) {
+                        Log.i(TAG, "sdsqf " + interests_user.get(0).name);
+                        Toast.makeText(getApplicationContext(), "interests retornados", Toast.LENGTH_LONG).show();
+                        Log.i(TAG, "XIX");
+                    }
+                    else{
+                        Log.i(TAG,"sem interests");
+                        interests_user = null;
+                    }
+                    callback.set_skills_callback(interests_user,app);
                 }
             }
-        });
-    }*/
 
+            @Override
+            public void onFailure(Call<List<Skill>> call, Throwable t) {
+                Log.i(TAG, "seventh");
+                Toast.makeText(getApplicationContext(), "Falha no acesso ao servidor", Toast.LENGTH_LONG).show();
+                callback.set_skills_callback(null,app);
+            }
+        });
+    }
 
 
     private void request_server_skills(final Email_callback email_callback) {
