@@ -9,5 +9,5 @@ import br.ufrn.imd.projeto.dominio.User;
  */
 
 public interface Search_callback {
-    public void users_search_callback(List<User> users_search);
+    public void users_search_callback(List<User> users_search, int id);
 }

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,6 +25,7 @@ import br.ufrn.imd.projeto.R;
 import br.ufrn.imd.projeto.apiClient.Insert_Skill_Call;
 import br.ufrn.imd.projeto.apiClient.Search_callback;
 import br.ufrn.imd.projeto.apiClient.service.UserService;
+import br.ufrn.imd.projeto.dominio.Match;
 import br.ufrn.imd.projeto.dominio.Skill;
 import br.ufrn.imd.projeto.dominio.User;
 import retrofit2.Call;
@@ -120,7 +122,7 @@ public class SearchActivity extends AppCompatActivity {
         if(myRadioSkills.isChecked()){
             request_users_by_skills(text, new Search_callback() {
                 @Override
-                public void users_search_callback(List<User> users_search) {
+                public void users_search_callback(final List<User> users_search, final int id_skill) {
 
                     Button button;
                     Bitmap bitmap;
@@ -137,6 +139,14 @@ public class SearchActivity extends AppCompatActivity {
                             button.setCompoundDrawables(img, null, null, null);
                             button.setText(users_search.get(i).name+ "\n" + users_search.get(i).email);
                             layout.addView(button);
+
+                            final int finalI = i;
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    request_match(LoginActivity.global_user_login.id, users_search.get(finalI).id, id_skill,false);
+                                }
+                            });
                         }
                 }
             });
@@ -144,11 +154,10 @@ public class SearchActivity extends AppCompatActivity {
         else{
             request_users_by_interests(text, new Search_callback() {
                 @Override
-                public void users_search_callback(List<User> users_search) {
+                public void users_search_callback(final List<User> users_search, final int id_interest) {
                     Button button;
                     Bitmap bitmap;
                     Drawable img;
-
 
                     if(users_search != null)
                         for(int i=0;i<users_search.size();i++){
@@ -160,17 +169,69 @@ public class SearchActivity extends AppCompatActivity {
                             button.setCompoundDrawables(img, null, null, null);
                             button.setText(users_search.get(i).name+ "\n" + users_search.get(i).email);
                             layout.addView(button);
+
+                            final int finalI = i;
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    request_match(LoginActivity.global_user_login.id, users_search.get(finalI).id, id_interest,true);
+                                }
+                            });
                         }
                 }
             });
         }
     }
 
+    public void request_match(int id_user_logged, int id_user_searched, int id_skill_interest, boolean has_ability){
+
+        if(id_user_logged != id_user_searched){
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                    .create();
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(UserService.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+
+            UserService UserAPI = retrofit.create(UserService.class);
+
+            Call<Void> postMatch;
+
+            if(has_ability)
+                postMatch = UserAPI.perform_match(new Match(id_user_searched + "", id_user_logged + "", id_skill_interest + ""));
+            else
+                postMatch = UserAPI.perform_match(new Match(id_user_logged+"", id_user_searched+ "", id_skill_interest + ""));
+
+            postMatch.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(getApplicationContext(),"Match Realizado com Sucesso!",Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"Erro no match!",Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(),"Falha no acesso ao servidor",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Impossível fazer match consigo mesmo",Toast.LENGTH_LONG).show();
+        }
+    }
+
+
     public void request_users_by_skills(String name_skill, final Search_callback callback){
 
         request_id_by_name(name_skill, new Insert_Skill_Call.Skill_Interest_Id_Call() {
             @Override
-            public void skill_interest_callback(int id_skill_interest) {
+            public void skill_interest_callback(final int id_skill_interest) {
                 Gson gson = new GsonBuilder()
                         .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                         .create();
@@ -193,12 +254,12 @@ public class SearchActivity extends AppCompatActivity {
                             list_search = response.body();
                         }
 
-                        callback.users_search_callback(list_search);
+                        callback.users_search_callback(list_search,id_skill_interest);
                     }
 
                     @Override
                     public void onFailure(Call<List<User>> call, Throwable t) {
-                        callback.users_search_callback(null);
+                        callback.users_search_callback(null,id_skill_interest);
                     }
                 });
             }
@@ -251,7 +312,7 @@ public class SearchActivity extends AppCompatActivity {
 
         request_id_by_name(name_interest, new Insert_Skill_Call.Skill_Interest_Id_Call() {
             @Override
-            public void skill_interest_callback(int id_skill_interest) {
+            public void skill_interest_callback(final int id_skill_interest) {
                 Gson gson = new GsonBuilder()
                         .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                         .create();
@@ -274,12 +335,12 @@ public class SearchActivity extends AppCompatActivity {
                             list_search = response.body();
                         }
 
-                        callback.users_search_callback(list_search);
+                        callback.users_search_callback(list_search,id_skill_interest);
                     }
 
                     @Override
                     public void onFailure(Call<List<User>> call, Throwable t) {
-                        callback.users_search_callback(null);
+                        callback.users_search_callback(null,id_skill_interest);
                     }
                 });
             }

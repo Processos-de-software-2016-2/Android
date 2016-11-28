@@ -2,6 +2,7 @@ package br.ufrn.imd.projeto.apiClient.service;
 
 import java.util.List;
 
+import br.ufrn.imd.projeto.dominio.Match;
 import br.ufrn.imd.projeto.dominio.Skill;
 import br.ufrn.imd.projeto.dominio.Skill_ID;
 import br.ufrn.imd.projeto.dominio.StateLogin;
@@ -52,4 +53,7 @@ public interface UserService {
 
     @GET("interest/{id_interest}/users")
     Call<List<User>> get_users_by_interest(@Path("id_interest") int id_interest);
+
+    @POST("matches")
+    Call<Void> perform_match(@Body Match body);
 }

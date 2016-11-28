@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "android_application";
     String user;
     String password;
+    static User global_user_login;
     List<Skill> skills_user;
     List<Skill> interests_user;
 
@@ -174,9 +175,11 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void setUser_login(User user) {
                             Log.i(TAG,"XIII");
-                            User user_login = new User(user.email, user.age, user.password, user.id, user.name);
 
-                            //setUserGlobalData(user_login);
+                            User user_login = new User(user.email, user.age, user.password, user.id, user.name);
+                            global_user_login = user_login;
+
+                                    //setUserGlobalData(user_login);
 
                             setUserGlobalDataLogin(user_login);
                             /*Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
