@@ -46,4 +46,10 @@ public interface UserService {
 
     @GET("/user/{id}/interests")
     Call<List<Skill>> getInterestsUser(@Path("id") int id);
+
+    @GET("skill/{id_skill}/users")
+    Call<List<User>> get_users_by_skill(@Path("id_skill") int id_skill);
+
+    @GET("interest/{id_interest}/users")
+    Call<List<User>> get_users_by_interest(@Path("id_interest") int id_interest);
 }

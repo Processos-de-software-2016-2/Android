@@ -4,17 +4,37 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.Spinner;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.List;
 
 import br.ufrn.imd.projeto.R;
+import br.ufrn.imd.projeto.apiClient.Insert_Skill_Call;
+import br.ufrn.imd.projeto.apiClient.Search_callback;
+import br.ufrn.imd.projeto.apiClient.service.UserService;
+import br.ufrn.imd.projeto.dominio.Skill;
+import br.ufrn.imd.projeto.dominio.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchActivity extends AppCompatActivity {
+
+    private static final String TAG = "SearchUsers";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +52,20 @@ public class SearchActivity extends AppCompatActivity {
         // Calculo do tamanho da foto
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int height = displaymetrics.heightPixels - findViewById(R.id.rlSearchBar).getHeight();
+        final int height = displaymetrics.heightPixels - findViewById(R.id.rlSearchBar).getHeight();
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.llSearchResults);
+        final LinearLayout layout = (LinearLayout) findViewById(R.id.llSearchResults);
         layout.removeAllViews();
 
-        Button button;
-        Bitmap bitmap;
-        Drawable img;
+        /*layout.removeAllViews();
 
-        button = new Button(this);
+        final Button button;
+        final Bitmap bitmap;
+        final Drawable img;
+
+        button = new Button(this);*/
+
+        /*button = new Button(this);
         bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.avatar1);
         bitmap = new PictureCreator().getCroppedBitmap(bitmap);
         img = new BitmapDrawable(this.getResources(), bitmap);
@@ -84,6 +108,182 @@ public class SearchActivity extends AppCompatActivity {
         img.setBounds(0, 0, height/4, height/4);
         button.setCompoundDrawables(img, null, null, null);
         button.setText(this.getResources().getString(R.string.username) + "\n" + this.getResources().getString(R.string.starpoint));
-        layout.addView(button);
+        layout.addView(button);*/
+
+        //ability = ((TextView) findViewById(R.id.
+        Spinner mySpinner=(Spinner) findViewById(R.id.spSearch);
+        String text = mySpinner.getSelectedItem().toString();
+
+        RadioButton myRadioSkills = (RadioButton) findViewById(R.id.radioButton2);
+        //RadioButton myRadioInterests = (RadioButton) findViewById(R.id.radioButton);
+
+        if(myRadioSkills.isChecked()){
+            request_users_by_skills(text, new Search_callback() {
+                @Override
+                public void users_search_callback(List<User> users_search) {
+
+                    Button button;
+                    Bitmap bitmap;
+                    Drawable img;
+
+
+                    if(users_search != null)
+                        for(int i=0;i<users_search.size();i++){
+                            button = new Button(getApplicationContext());
+                            bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.avatar1);
+                            bitmap = new PictureCreator().getCroppedBitmap(bitmap);
+                            img = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
+                            img.setBounds(0, 0, height/4, height/4);
+                            button.setCompoundDrawables(img, null, null, null);
+                            button.setText(users_search.get(i).name+ "\n" + users_search.get(i).email);
+                            layout.addView(button);
+                        }
+                }
+            });
+        }
+        else{
+            request_users_by_interests(text, new Search_callback() {
+                @Override
+                public void users_search_callback(List<User> users_search) {
+                    Button button;
+                    Bitmap bitmap;
+                    Drawable img;
+
+
+                    if(users_search != null)
+                        for(int i=0;i<users_search.size();i++){
+                            button = new Button(getApplicationContext());
+                            bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.avatar2);
+                            bitmap = new PictureCreator().getCroppedBitmap(bitmap);
+                            img = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
+                            img.setBounds(0, 0, height/4, height/4);
+                            button.setCompoundDrawables(img, null, null, null);
+                            button.setText(users_search.get(i).name+ "\n" + users_search.get(i).email);
+                            layout.addView(button);
+                        }
+                }
+            });
+        }
     }
+
+    public void request_users_by_skills(String name_skill, final Search_callback callback){
+
+        request_id_by_name(name_skill, new Insert_Skill_Call.Skill_Interest_Id_Call() {
+            @Override
+            public void skill_interest_callback(int id_skill_interest) {
+                Gson gson = new GsonBuilder()
+                        .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                        .create();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(UserService.BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .build();
+
+                UserService UserAPI = retrofit.create(UserService.class);
+
+                Call<List<User>> callUsers = UserAPI.get_users_by_skill(id_skill_interest);
+
+                callUsers.enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                        List<User> list_search = null;
+
+                        if(response.isSuccessful()) {
+                            list_search = response.body();
+                        }
+
+                        callback.users_search_callback(list_search);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<User>> call, Throwable t) {
+                        callback.users_search_callback(null);
+                    }
+                });
+            }
+        });
+    }
+
+    public void request_id_by_name(final String name_skill, final Insert_Skill_Call.Skill_Interest_Id_Call callback){
+
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UserService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        UserService UserAPI = retrofit.create(UserService.class);
+
+        Call<List<Skill>> callSkillInterest = UserAPI.skill_by_name(name_skill);
+
+        callSkillInterest.enqueue(new Callback<List<Skill>>() {
+            @Override
+            public void onResponse(Call<List<Skill>> call, Response<List<Skill>> response) {
+                if(!response.isSuccessful()){
+                    Log.i(TAG,"Problema na resposta");
+                }
+                else{
+                    List<Skill> lst = response.body();
+
+
+                    if(lst!=null && lst.size()!=0){
+                        callback.skill_interest_callback(lst.get(0).id);
+                    }
+                    else{
+                        /*In the case where the skill is not in server, a different id skill is passed*/
+                        callback.skill_interest_callback(-1);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Skill>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void request_users_by_interests(String name_interest, final Search_callback callback){
+
+        request_id_by_name(name_interest, new Insert_Skill_Call.Skill_Interest_Id_Call() {
+            @Override
+            public void skill_interest_callback(int id_skill_interest) {
+                Gson gson = new GsonBuilder()
+                        .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                        .create();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(UserService.BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .build();
+
+                UserService UserAPI = retrofit.create(UserService.class);
+
+                Call<List<User>> callUsers = UserAPI.get_users_by_interest(id_skill_interest);
+
+                callUsers.enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                        List<User> list_search = null;
+
+                        if(response.isSuccessful()) {
+                            list_search = response.body();
+                        }
+
+                        callback.users_search_callback(list_search);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<User>> call, Throwable t) {
+                        callback.users_search_callback(null);
+                    }
+                });
+            }
+        });
+    }
+
 }

@@ -349,7 +349,6 @@ public class RegisterActivity extends AppCompatActivity {
                         }
 
 
-
                         //================================================================================
                     }
                 }, email_send);
