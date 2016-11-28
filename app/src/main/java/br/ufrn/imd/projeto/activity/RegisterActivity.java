@@ -1,4 +1,4 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,6 +21,15 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufrn.imd.projeto.R;
+import br.ufrn.imd.projeto.apiClient.Email_callback;
+import br.ufrn.imd.projeto.apiClient.Get_Email_Skill_Callback;
+import br.ufrn.imd.projeto.apiClient.Insert_Skill_Call;
+import br.ufrn.imd.projeto.apiClient.service.UserService;
+import br.ufrn.imd.projeto.dominio.BaseAppExtender;
+import br.ufrn.imd.projeto.dominio.Skill;
+import br.ufrn.imd.projeto.dominio.Skill_ID;
+import br.ufrn.imd.projeto.dominio.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -1,8 +1,10 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.apiClient;
 
 import android.app.Application;
 
 import java.util.List;
+
+import br.ufrn.imd.projeto.dominio.Skill;
 
 /**
  * Created by ronaldo on 26/11/2016.

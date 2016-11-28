@@ -1,4 +1,4 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.activity;
 
 import android.app.Application;
 import android.content.Intent;
@@ -17,6 +17,16 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufrn.imd.projeto.R;
+import br.ufrn.imd.projeto.apiClient.Email_Call;
+import br.ufrn.imd.projeto.apiClient.Email_callback;
+import br.ufrn.imd.projeto.apiClient.Interface_Call;
+import br.ufrn.imd.projeto.apiClient.Skills_Callback;
+import br.ufrn.imd.projeto.apiClient.service.UserService;
+import br.ufrn.imd.projeto.dominio.BaseAppExtender;
+import br.ufrn.imd.projeto.dominio.Skill;
+import br.ufrn.imd.projeto.dominio.StateLogin;
+import br.ufrn.imd.projeto.dominio.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

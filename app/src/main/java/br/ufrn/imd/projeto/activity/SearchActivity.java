@@ -1,4 +1,4 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +11,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import br.ufrn.imd.projeto.R;
 
 public class SearchActivity extends AppCompatActivity {
 

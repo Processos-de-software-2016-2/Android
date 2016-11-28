@@ -1,4 +1,4 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.dominio;
 
 /**
  * Created by ronaldo on 16/11/2016.

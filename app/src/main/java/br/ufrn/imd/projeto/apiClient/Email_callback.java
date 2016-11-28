@@ -1,4 +1,4 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.apiClient;
 
 /**
  * Created by ronaldo on 26/11/2016.
