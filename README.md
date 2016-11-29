@@ -1,5 +1,5 @@
 # LURN
-<img align="center" src="http://ziwork.neocities.org/logo.png"/>
+<p align="center"><img src="http://ziwork.neocities.org/logo.png"/></p>
 
 Este é o projeto final da disciplina <b>Processos de Software 2016.2</b>, do curso de <b>Tecnologia da Informação</b> da <b>Universidade Federal do Rio Grande do Norte</b>.
 Este projeto tem como objetivo construir um software que permita aos usuários combinar interesses e habilidades de forma que possam formar duplas que compartilhem conhecimento e resolvam problemas uns dos outros.
