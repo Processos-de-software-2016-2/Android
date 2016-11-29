@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MatchActivity extends AppCompatActivity {
     private String targetSkill = "";
@@ -53,6 +54,10 @@ public class MatchActivity extends AppCompatActivity {
 
     public void sendNotification(View view) {
         // TODO implementar envio de notificação
+
+        String message = getResources().getString(R.string.success_request);
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void backToProfile(View view) {

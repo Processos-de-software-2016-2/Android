@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -293,15 +294,22 @@ public class RegisterActivity extends AppCompatActivity {
     public void addAbility(final View view) {
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.acAbilitySelect);
         String newAbility = autoCompleteTextView.getText().toString();
+        InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         if (Arrays.asList(items).contains(newAbility)) {
             if (abilityList.contains(newAbility)) {
-                abilityList.remove(abilityList.indexOf(newAbility));
+                String errorMessage = newAbility + getResources().getString(R.string.error7);
+                Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+                toast.show();
             } else {
                 abilityList.add(newAbility);
             }
 
             refreshAbilityList();
+
+            autoCompleteTextView.setText("");
+
+            keyboard.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         }
         else {
             String errorMessage = getResources().getString(R.string.error5);
@@ -358,16 +366,23 @@ public class RegisterActivity extends AppCompatActivity {
     public void addInterest(View view) {
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.acInterestSelect);
         String newInterest = autoCompleteTextView.getText().toString();
+        InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         if (Arrays.asList(items).contains(newInterest)) {
             if (interestList.contains(newInterest)) {
-                interestList.remove(interestList.indexOf(newInterest));
+                String errorMessage = newInterest + getResources().getString(R.string.error7);
+                Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+                toast.show();
             }
             else {
                 interestList.add(newInterest);
             }
 
             refreshInterestList();
+
+            autoCompleteTextView.setText("");
+
+            keyboard.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         }
         else {
             String errorMessage = getResources().getString(R.string.error6);

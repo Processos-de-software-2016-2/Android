@@ -37,6 +37,7 @@
     <string name="error4">Action canceled.</string>
     <string name="error5">Choose a valid ability.</string>
     <string name="error6">Choose a valid interest.</string>
+    <string name="error7">" has already been added."</string>
 
     <!-- Other stuff -->
     <string name="app_name" translatable="false">Lurn</string>
@@ -65,11 +66,12 @@
     <string name="enter">Enter</string>
     <string name="next">Next</string>
     <string name="match">Match</string>
-    <string name="send_notification">Send notification</string>
+    <string name="send_notification">Send a match request</string>
     <string name="cancel">Cancel</string>
     <string name="emptyAbility">No abilities yet.</string>
     <string name="emptyInterest">No interests yet.</string>
     <string name="suggestion">Want to learn something new?\nMaybe they can help you:</string>
     <string name="search_hint">Ability search</string>
+    <string name="success_request">Request was successfully sent.</string>
 
 </resources>

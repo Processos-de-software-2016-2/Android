@@ -56,7 +56,7 @@
     <string name="username">Nome do usuário</string>
     <string name="email">nome@dominio.com</string>
     <string name="match">Contato</string>
-    <string name="send_notification">Enviar notificação</string>
+    <string name="send_notification">Enviar pedido de match</string>
     <string name="cancel">Cancelar</string>
     <string name="error5">Escolha uma habilidade válida.</string>
     <string name="error6">Escolha um interesse válido.</string>
@@ -64,5 +64,7 @@
     <string name="emptyInterest">Nunhum interesse ainda.</string>
     <string name="suggestion">Quer aprender algo novo?\nTalvez eles possam ajudá-lo:</string>
     <string name="search_hint">Busca de habilidades</string>
+    <string name="error7">" já foi adicionado(a)."</string>
+    <string name="success_request">Pedido foi enviado com sucesso.</string>
 
 </resources>
