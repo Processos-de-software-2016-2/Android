@@ -1,4 +1,4 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import br.ufrn.imd.projeto.R;
+import br.ufrn.imd.projeto.dominio.BaseAppExtender;
 
 public class MatchActivity extends AppCompatActivity {
     private String targetSkill = "";

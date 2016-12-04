@@ -1,4 +1,4 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.Arrays;
+
+import br.ufrn.imd.projeto.R;
+import br.ufrn.imd.projeto.dominio.BaseAppExtender;
 
 public class SearchActivity extends AppCompatActivity {
     private String[] items;

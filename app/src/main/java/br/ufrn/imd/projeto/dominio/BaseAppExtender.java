@@ -1,4 +1,4 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.dominio;
 
 import android.app.Application;
 import android.graphics.Bitmap;

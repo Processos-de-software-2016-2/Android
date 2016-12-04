@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="20dp"
     android:theme="@style/box"
-    tools:context="br.ufrn.imd.projeto.MainActivity">
+    tools:context="br.ufrn.imd.projeto.activity.MainActivity">
 
     <LinearLayout
         android:orientation="horizontal"

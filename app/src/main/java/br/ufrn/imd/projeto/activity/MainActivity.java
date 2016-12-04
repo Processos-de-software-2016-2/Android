@@ -1,19 +1,24 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import br.ufrn.imd.projeto.R;
+import br.ufrn.imd.projeto.dominio.BaseAppExtender;
+
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG1 = "add abilities: ";
     private boolean main;
     private String userId;
     private String[] suggestionTags;
@@ -24,9 +29,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         main = getIntent().getBooleanExtra("main", true);
+
         userId = getIntent().getStringExtra("user");
+        Log.i(TAG1,"pegou user e jogou em userId : "+userId);
 
         suggestionTags = getResources().getStringArray(R.array.tags);
+        Log.i(TAG1,"pegou o array de abilities e jogou em suggestionTags");
 
         getSuggestion();
     }
@@ -42,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /*Metodo que preenche todas as sugestoes na tela principal*/
     private void getSuggestion() {
         LinearLayout layout = (LinearLayout) findViewById(R.id.llSuggestions);
         int size = ((BaseAppExtender) this.getApplication()).getMiniSize()/2;
@@ -147,13 +156,16 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(button);
     }
 
+    /*No clique do botao profile chama o perfil usando userId*/
     public void goToProfile(View view) {
+        Log.i(TAG1,"acaba de clicar/chamar activity profile passando user-> email");
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("main", true);
         intent.putExtra("user", userId);
         startActivity(intent);
     }
 
+    /*No clique do botao Search chama a activity de pesquisa*/
     public void goToSearch(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);

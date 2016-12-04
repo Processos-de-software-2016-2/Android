@@ -1,4 +1,4 @@
-package br.ufrn.imd.projeto;
+package br.ufrn.imd.projeto.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,9 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,7 +21,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import br.ufrn.imd.projeto.R;
+import br.ufrn.imd.projeto.dominio.BaseAppExtender;
+
 public class ProfileActivity extends AppCompatActivity {
+    private static final String TAG = "Profile Erro";
+    private static final String TAG1 = "add abilities: " ;
     private boolean main;
     private String userId;
 
@@ -31,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         main = getIntent().getBooleanExtra("main", true);
         userId = getIntent().getStringExtra("user");
+        Log.i(TAG1,"Captura na tela de perfil intent do email: "+ userId);
 
         initFields();
     }
@@ -72,11 +79,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void editAbility(View view) {
+        Log.i(TAG1,"acaba de clicar no botao para edicao de habilidades: "+ ((TextView) findViewById(R.id.tvComplement)).getText().toString());
         Intent intent = new Intent(this, RegisterActivity.class);
         intent.putExtra("register", false);
         intent.putExtra("part", 1);
         intent.putExtra("user", ((TextView) findViewById(R.id.tvComplement)).getText().toString());
-
+        //Log.i(TAG,"o complemento é: "+((TextView) findViewById(R.id.tvComplement)).getText().toString());
+        Log.i(TAG1,"eleventh ");
         startActivity(intent);
     }
 
@@ -90,16 +99,23 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initFields() {
+        Log.i(TAG1,"carrega tudo do profile activity ");
         new LoadPhoto().execute(this);
         ((TextView) findViewById(R.id.tvName)).setText(((BaseAppExtender) this.getApplication()).getName());
         ((TextView) findViewById(R.id.tvComplement)).setText(((BaseAppExtender) this.getApplication()).getEmail());
+
         initAbilitiesInterests();
         initContacts();
     }
 
     // Inicia lista de habilidades e interesses
     private void initAbilitiesInterests() {
+        Log.i(TAG1,"iniciando lista de habilidades/interesses");
         List<String> abilities = ((BaseAppExtender) this.getApplication()).getAbility();
+
+        for(int i=0;i<abilities.size();i++){
+            Log.i(TAG1,"alfa "+abilities.get(i));
+        }
         List<String> interests = ((BaseAppExtender) this.getApplication()).getInterest();
 
         // Populando a lista com as habilidades e interesses
@@ -136,6 +152,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         layout1.addView(textAb);
         layout2.addView(textIn);
+        Log.i(TAG1,"nineth");
     }
 
     private void initContacts() {
@@ -192,6 +209,8 @@ public class ProfileActivity extends AppCompatActivity {
         imageButton.getLayoutParams().width = ((BaseAppExtender) this.getApplication()).getMiniSize();
         imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageButton.setAdjustViewBounds(true);
+
+        Log.i(TAG1,"tenth");
     }
 
     // Thread que irá fazer o serviço de cortar a imagem do perfil
