@@ -43,9 +43,12 @@ public class LoginActivity extends AppCompatActivity {
     private final LoadingDialog loadingDialog = new LoadingDialog();
     private final LoginDialog loginDialog = new LoginDialog();
 
+    private BaseAppExtender app;
+
     static User global_user_login;
     static List<Skill> skills_user;
     static List<Skill> interests_user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         int size = (width < height) ? width/2 : height/2;
 
         ((BaseAppExtender) this.getApplication()).setSize(size);
+        app = ((BaseAppExtender) this.getApplication());
     }
 
     @Override
@@ -98,7 +102,6 @@ public class LoginActivity extends AppCompatActivity {
 
                             User user_login = new User(user.email, user.age, user.password, user.id, user.name);
                             global_user_login = user_login;
-
                             setUserGlobalDataLogin(user_login);
                         }
                     });

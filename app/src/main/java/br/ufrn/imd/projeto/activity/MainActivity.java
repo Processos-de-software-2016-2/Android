@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
         main = getIntent().getBooleanExtra("main", true);
 
-        userId = getIntent().getStringExtra("user");
+        userId = ((BaseAppExtender)this.getApplication()).getEmail();
+        //userId = getIntent().getStringExtra("user");
         Log.i(TAG1,"pegou user e jogou em userId : "+userId);
 
         suggestionTags = getResources().getStringArray(R.array.tags);
@@ -168,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
     /*No clique do botao Search chama a activity de pesquisa*/
     public void goToSearch(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("user",userId);
         startActivity(intent);
     }
 }

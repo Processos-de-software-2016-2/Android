@@ -64,8 +64,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     // Função botão procurar
     public void search(MenuItem item) {
-        Intent intent = new Intent(this, SearchActivity.class);
 
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("user",userId);
         startActivity(intent);
     }
 

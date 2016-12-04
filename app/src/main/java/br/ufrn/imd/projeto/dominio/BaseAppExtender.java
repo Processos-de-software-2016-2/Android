@@ -16,6 +16,8 @@ public class BaseAppExtender extends Application {
     private int size;
     private int miniSize;
 
+    private int id_user_logged;
+
     public Bitmap getPicture() {
         return picture;
     }
